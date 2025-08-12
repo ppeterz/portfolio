@@ -3,177 +3,693 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Pelumi Peter Portfolio</title>
+  <title>Pelumi Peter - Hardware & Software Engineer</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            'inter': ['Inter', 'system-ui', 'sans-serif'],
+          },
+          animation: {
+            'fade-in': 'fadeIn 0.6s ease-out',
+            'slide-up': 'slideUp 0.8s ease-out',
+            'bounce-gentle': 'bounceGentle 2s infinite',
+            'glow': 'glow 2s ease-in-out infinite alternate',
+            'float': 'float 6s ease-in-out infinite',
+          },
+        }
+      }
+    }
+  </script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+    
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    
+    @keyframes slideUp {
+      from { 
+        opacity: 0; 
+        transform: translateY(30px); 
+      }
+      to { 
+        opacity: 1; 
+        transform: translateY(0); 
+      }
+    }
+    
+    @keyframes bounceGentle {
+      0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+      40% { transform: translateY(-10px); }
+      60% { transform: translateY(-5px); }
+    }
+    
+    @keyframes glow {
+      from { box-shadow: 0 0 20px rgba(59, 130, 246, 0.5); }
+      to { box-shadow: 0 0 30px rgba(59, 130, 246, 0.8), 0 0 40px rgba(59, 130, 246, 0.3); }
+    }
+    
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-20px); }
+    }
+    
+    .gradient-bg {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    }
+    
+    .glass-effect {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+    
+    .card-hover {
+      transition: all 0.3s ease;
+    }
+    
+    .card-hover:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    }
+    
+    .typing-animation {
+      border-right: 2px solid #3b82f6;
+      white-space: nowrap;
+      overflow: hidden;
+      animation: typing 3s steps(40) infinite, blink 1s infinite;
+    }
+    
+    @keyframes typing {
+      0% { width: 0; }
+      50% { width: 100%; }
+      100% { width: 0; }
+    }
+    
+    @keyframes blink {
+      50% { border-color: transparent; }
+    }
+    
+    .parallax {
+      transform: translateZ(0);
+      transition: transform 0.3s ease-out;
+    }
+    
+    .tech-badge {
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+    
+    .tech-badge:hover {
+      transform: scale(1.05);
+      background: linear-gradient(45deg, #3b82f6, #8b5cf6);
+      color: white;
+    }
+  </style>
 </head>
-<body class="bg-gray-50 text-gray-800">
+<body class="bg-gray-50 text-gray-800 font-inter overflow-x-hidden">
 
-  <!-- Header -->
-  <header class="bg-white shadow-sm">
+  <!-- Header with smooth scroll -->
+  <header class="bg-white/80 backdrop-blur-md shadow-sm fixed w-full top-0 z-50 transition-all duration-300">
     <nav class="max-w-6xl mx-auto flex justify-between items-center p-4" aria-label="Primary navigation">
-  <div>
-    <img src="#" alt="Logo" class="w-12 h-12 object-contain" />
-  </div>
-  <ul class="flex space-x-6 text-sm font-medium">
-    <li><a href="index.html" class="hover:text-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-600">Home</a></li>
-    <li><a href="#about" class="hover:text-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-600">About</a></li>
-    <li><a href="blog.html" class="hover:text-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-600">Lab</a></li>
-  </ul>
+      <div class="flex items-center space-x-3">
+        <div class="w-12 h-12 bg-gradient-to-br from-blue-600 to-purple-600 rounded-xl flex items-center justify-center text-white font-bold text-xl animate-glow">
+          PP
+        </div>
+        <span class="font-semibold text-lg">Pelumi Peter</span>
+      </div>
+      <ul class="flex space-x-6 text-sm font-medium">
+        <li><a href="#home" class="nav-link hover:text-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-600 px-3 py-2 rounded-lg transition-all duration-300">Home</a></li>
+        <li><a href="#about" class="nav-link hover:text-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-600 px-3 py-2 rounded-lg transition-all duration-300">About</a></li>
+        <li><a href="#portfolio" class="nav-link hover:text-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-600 px-3 py-2 rounded-lg transition-all duration-300">Portfolio</a></li>
+        <li><a href="blog.html" class="nav-link hover:text-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-600 px-3 py-2 rounded-lg transition-all duration-300">Lab</a></li>
+        <li><a href="#contact" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-all duration-300 transform hover:scale-105">Contact</a></li>
+      </ul>
+    </nav>
   </header>
 
-  <!-- Hero -->
-  <section class="max-w-6xl mx-auto px-4 py-16 grid md:grid-cols-2 gap-12 items-center">
-    <div>
-      <h1 class="text-3xl md:text-5xl font-bold mb-4">Building Innovative Hardware & Software Solutions</h1>
-      <p class="text-lg mb-6">I design intelligent hardware systems, craft beautiful user interfaces, and bring ideas to life as a founder.</p>
-      <div class="flex space-x-4">
-        <a href="#" class="bg-blue-600 text-white px-5 py-3 rounded-lg shadow hover:bg-blue-700">View My Work</a>
-        <a href="#" class="border border-blue-600 text-blue-600 px-5 py-3 rounded-lg hover:bg-blue-50">Let’s Work Together</a>
+  <!-- Hero Section with enhanced animations -->
+  <section id="home" class="min-h-screen flex items-center gradient-bg relative overflow-hidden pt-20">
+    <!-- Animated background elements -->
+    <div class="absolute inset-0">
+      <div class="absolute top-20 left-10 w-72 h-72 bg-white/10 rounded-full blur-3xl animate-float"></div>
+      <div class="absolute bottom-20 right-10 w-96 h-96 bg-purple-300/20 rounded-full blur-3xl animate-float" style="animation-delay: -3s;"></div>
+    </div>
+    
+    <div class="max-w-6xl mx-auto px-4 py-16 grid md:grid-cols-2 gap-12 items-center relative z-10">
+      <div class="animate-slide-up">
+        <div class="mb-6">
+          <span class="inline-block bg-white/20 text-white px-4 py-2 rounded-full text-sm font-medium backdrop-blur-md">
+            Available for new projects
+          </span>
+        </div>
+        <h1 class="text-4xl md:text-6xl font-bold mb-6 text-white leading-tight">
+          Building <span class="bg-gradient-to-r from-yellow-400 to-orange-500 bg-clip-text text-transparent">Innovative</span><br>
+          Hardware & Software Solutions
+        </h1>
+        <p class="text-xl mb-8 text-white/90 leading-relaxed">I design intelligent hardware systems, craft beautiful user interfaces, and bring ideas to life as a founder.</p>
+        
+        <!-- Tech stack badges -->
+        <div class="flex flex-wrap gap-3 mb-8">
+          <span class="tech-badge bg-white/20 backdrop-blur-md text-white px-3 py-1 rounded-full text-sm">IoT</span>
+          <span class="tech-badge bg-white/20 backdrop-blur-md text-white px-3 py-1 rounded-full text-sm">React</span>
+          <span class="tech-badge bg-white/20 backdrop-blur-md text-white px-3 py-1 rounded-full text-sm">Hardware Design</span>
+          <span class="tech-badge bg-white/20 backdrop-blur-md text-white px-3 py-1 rounded-full text-sm">AI Integration</span>
+        </div>
+        
+        <div class="flex space-x-4">
+          <a href="#portfolio" class="bg-white text-gray-800 px-6 py-3 rounded-xl shadow-lg hover:shadow-xl font-medium transition-all duration-300 transform hover:scale-105">
+            View My Work
+          </a>
+          <a href="#contact" class="glass-effect text-white px-6 py-3 rounded-xl font-medium transition-all duration-300 transform hover:scale-105">
+            Let's Work Together
+          </a>
+        </div>
+      </div>
+      
+      <div class="flex justify-center animate-slide-up" style="animation-delay: 0.3s;">
+        <div class="relative">
+          <div class="w-80 h-80 bg-white/20 backdrop-blur-md rounded-3xl p-8 transform rotate-6 hover:rotate-0 transition-transform duration-500">
+           <div class="absolute inset-0 flex items-center justify-center text-white text-6xl bg-center bg-cover"
+                 style="background-image: url('image/IMG_9563.JPG');">
+            </div>
+          </div>
+          <div class="absolute -bottom-4 -right-4 w-24 h-24 bg-yellow-400 rounded-full flex items-center justify-center text-2xl animate-bounce-gentle">
+            💡
+          </div>
+        </div>
       </div>
     </div>
-    <div class="flex justify-center">
-      <img src="#" alt="my picture" class="rounded-xl shadow-lg max-w-xs">
+    
+    <!-- Scroll indicator -->
+    <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce-gentle">
+      <div class="w-6 h-10 border-2 border-white/50 rounded-full flex justify-center">
+        <div class="w-1 h-3 bg-white/50 rounded-full mt-2 animate-pulse"></div>
+      </div>
     </div>
   </section>
 
-  <!-- About -->
-  <section id="about" class="bg-white py-16">
-    <div class="max-w-5xl mx-auto px-4">
-      <p class="text-lg text-gray-700 mb-10">I’m Pelumi Peter, a Nigeria-based engineer specializing in hardware embedded systems, IoT device design, and frontend development using React and modern web technologies. As the founder of [Startup Name], I’ve led projects from concept to market, blending hardware innovation with seamless user experiences.</p>
-      <div class="grid md:grid-cols-3 gap-8">
-        <div class="bg-gray-50 p-6 rounded-lg shadow-sm">
-          <h3 class="font-semibold text-lg mb-2">Hardware</h3>
-          <p class="text-sm text-gray-600">Expertise in designing and prototyping hardware systems.</p>
-        </div>
-        <div class="bg-gray-50 p-6 rounded-lg shadow-sm">
-          <h3 class="font-semibold text-lg mb-2">Software</h3>
-          <p class="text-sm text-gray-600">Frontend development and API integration.</p>
-        </div>
-        <div class="bg-gray-50 p-6 rounded-lg shadow-sm">
-          <h3 class="font-semibold text-lg mb-2">Founder</h3>
-          <p class="text-sm text-gray-600">Product Development, Startup Growth, Team Leadership.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Portfolio -->
-  <section class="max-w-6xl mx-auto px-4 py-16">
-    <h2 class="text-2xl font-bold mb-8">My Work</h2>
-    <div class="grid md:grid-cols-3 gap-8">
-      <div class="bg-white p-4 rounded-lg shadow-sm">
-        <img src="#" alt="Project 1" class="rounded-md mb-4">
-        <h3 class="font-semibold text-lg mb-2">Low-Power IoT Attendance System</h3>
-        <p class="text-sm text-gray-600">A battery-efficient, wireless attendance monitoring system using IoT technology designed to record and transmit attendance data reliably over long periods.</p>
-      </div>
-      <div class="bg-white p-4 rounded-lg shadow-sm">
-        <img src="#" alt="Project 2" class="rounded-md mb-4">
-        <h3 class="font-semibold text-lg mb-2">AI Lesson Notes Generator</h3>
-        <p class="text-sm text-gray-600">An intelligent AI-powered tool that automatically generates detailed, customizable lesson notes from curriculum input, enhancing educators' productivity.</p>
-      </div>
-      <div class="bg-white p-4 rounded-lg shadow-sm">
-        <img src="#" alt="Project 3" class="rounded-md mb-4">
-        <h3 class="font-semibold text-lg mb-2">Deco Interio</h3>
-        <p class="text-sm text-gray-600">A modern interior design project showcasing creative space planning and aesthetic enhancements tailored to client preferences.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- Founder -->
-  <section class="bg-white py-16">
+  <!-- About Section -->
+  <section id="about" class="py-20 bg-white">
     <div class="max-w-6xl mx-auto px-4">
-      <h2 class="text-2xl font-bold mb-8">Founder & Product Creator</h2>
-      <div class="grid md:grid-cols-3 gap-8">
-        <div class="bg-gray-50 p-6 rounded-lg shadow-sm">
-          <h3 class="font-semibold text-lg mb-2">MVP Launch</h3>
-          <p class="text-sm text-gray-600">Successfully launched a Minimum Viable Product (MVP) that garnered positive user feedback and market interest. Bootstrapped and live.</p>
+      <div class="text-center mb-16 animate-slide-up">
+        <h2 class="text-4xl font-bold mb-4 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">About Me</h2>
+        <div class="w-24 h-1 bg-gradient-to-r from-blue-600 to-purple-600 mx-auto rounded-full"></div>
+      </div>
+      
+      <div class="grid md:grid-cols-2 gap-16 items-center">
+        <div class="animate-slide-up">
+          <p class="text-lg text-gray-700 mb-8 leading-relaxed">
+            I'm Pelumi Peter, a Nigeria-based engineer specializing in hardware embedded systems, IoT device design, and frontend development using React and modern web technologies. As a founder, I've led projects from concept to market, blending hardware innovation with seamless user experiences.
+          </p>
+          
+          <!-- Skills progress bars -->
+          <div class="space-y-6">
+            <div class="skill-item">
+              <div class="flex justify-between mb-2">
+                <span class="font-medium">Hardware Design</span>
+                <span class="text-blue-600">95%</span>
+              </div>
+              <div class="w-full bg-gray-200 rounded-full h-3">
+                <div class="bg-gradient-to-r from-blue-600 to-blue-400 h-3 rounded-full skill-bar" style="width: 0%" data-width="95%"></div>
+              </div>
+            </div>
+            
+            <div class="skill-item">
+              <div class="flex justify-between mb-2">
+                <span class="font-medium">React Development</span>
+                <span class="text-purple-600">90%</span>
+              </div>
+              <div class="w-full bg-gray-200 rounded-full h-3">
+                <div class="bg-gradient-to-r from-purple-600 to-purple-400 h-3 rounded-full skill-bar" style="width: 0%" data-width="90%"></div>
+              </div>
+            </div>
+            
+            <div class="skill-item">
+              <div class="flex justify-between mb-2">
+                <span class="font-medium">IoT Systems</span>
+                <span class="text-green-600">88%</span>
+              </div>
+              <div class="w-full bg-gray-200 rounded-full h-3">
+                <div class="bg-gradient-to-r from-green-600 to-green-400 h-3 rounded-full skill-bar" style="width: 0%" data-width="88%"></div>
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="bg-gray-50 p-6 rounded-lg shadow-sm">
-          <h3 class="font-semibold text-lg mb-2">Daily Users</h3>
-          <p class="text-sm text-gray-600">Achieved over 100 daily active users within the first month of launch, demonstrating strong product-market fit and user engagement.</p>
-        </div>
-        <div class="bg-gray-50 p-6 rounded-lg shadow-sm">
-          <h3 class="font-semibold text-lg mb-2">AI Integration</h3>
-          <p class="text-sm text-gray-600">Integrated advanced AI features into the product, enhancing user experience and automating key functionalities to improve efficiency.</p>
+        
+        <div class="grid gap-6 animate-slide-up" style="animation-delay: 0.3s;">
+          <div class="bg-gradient-to-br from-blue-50 to-blue-100 p-8 rounded-2xl card-hover">
+            <div class="w-16 h-16 bg-blue-600 rounded-2xl flex items-center justify-center text-white text-2xl mb-4">🔧</div>
+            <h3 class="font-semibold text-xl mb-3">Hardware Expert</h3>
+            <p class="text-gray-600">Designing and prototyping intelligent hardware systems with focus on power efficiency and reliability.</p>
+          </div>
+          
+          <div class="bg-gradient-to-br from-purple-50 to-purple-100 p-8 rounded-2xl card-hover">
+            <div class="w-16 h-16 bg-purple-600 rounded-2xl flex items-center justify-center text-white text-2xl mb-4">💻</div>
+            <h3 class="font-semibold text-xl mb-3">Software Developer</h3>
+            <p class="text-gray-600">Frontend development with React and modern web technologies, creating seamless user experiences.</p>
+          </div>
+          
+          <div class="bg-gradient-to-br from-green-50 to-green-100 p-8 rounded-2xl card-hover">
+            <div class="w-16 h-16 bg-green-600 rounded-2xl flex items-center justify-center text-white text-2xl mb-4">🚀</div>
+            <h3 class="font-semibold text-xl mb-3">Founder</h3>
+            <p class="text-gray-600">Leading product development from concept to market, with proven track record of successful launches.</p>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
-   <section id="contact" class="max-w-6xl mx-auto p-6 mt-5 mb-6  bg-white rounded-lg shadow-md">
-  <h2 class="text-2xl font-bold mb-6 text-center">Let’s Build Something Together</h2>
+  <!-- Portfolio Section -->
+  <section id="portfolio" class="py-20 bg-gray-50">
+    <div class="max-w-6xl mx-auto px-4">
+      <div class="text-center mb-16 animate-slide-up">
+        <h2 class="text-4xl font-bold mb-4">Featured Projects</h2>
+        <p class="text-xl text-gray-600 max-w-2xl mx-auto">A showcase of my recent work in hardware design, software development, and product innovation.</p>
+      </div>
+      
+      <div class="grid md:grid-cols-3 gap-8">
+        <div class="project-card bg-white rounded-3xl overflow-hidden shadow-lg card-hover animate-slide-up">
+          <div class="h-48 bg-gradient-to-br from-blue-400 to-blue-600 relative overflow-hidden">
+            <div class="absolute inset-0 flex items-center justify-center text-white text-6xl">
+              <img src="image/esp.png" alt="iot-power-efficiency">
 
-  <form action="#" method="POST" class="space-y-5">
-    <div>
-      <label for="name" class="block mb-1 font-medium">Name</label>
-      <input
-        type="text"
-        id="name"
-        name="name"
-        required
-        placeholder="Your full name"
-        class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-600"
-      />
-    </div>
-
-    <div>
-      <label for="email" class="block mb-1 font-medium">Email</label>
-      <input
-        type="email"
-        id="email"
-        name="email"
-        required
-        placeholder="you@example.com"
-        class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-600"
-      />
-    </div>
-
-    <div>
-      <label for="message" class="block mb-1 font-medium">Message</label>
-      <textarea
-        id="message"
-        name="message"
-        rows="5"
-        required
-        placeholder="Write your message here..."
-        class="w-full border border-gray-300 rounded-md px-3 py-2 resize-y focus:outline-none focus:ring-2 focus:ring-blue-600"
-      ></textarea>
-    </div>
-
-    <button
-      type="submit"
-      class="w-full bg-blue-600 text-white font-semibold py-3 rounded-md hover:bg-blue-700 transition"
-    >
-      Send Message
-    </button>
-  </form>
-
-  <div class="mt-8 flex justify-center space-x-8 text-gray-600">
-    <a href="https://linkedin.com/in/yourprofile" target="_blank" rel="noopener" aria-label="LinkedIn" class="hover:text-blue-700">
-      <!-- LinkedIn Icon SVG -->
-      <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" class="w-6 h-6">
-        <path d="M4.98 3.5C4.98 4.88 3.88 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1 4.98 2.12 4.98 3.5zM0 8h5v16H0V8zm7 0h5v2.7c.7-1.3 2.2-2.7 4.6-2.7 4.9 0 5.8 3.3 5.8 7.6V24h-5v-7c0-1.7 0-4-2.5-4-2.5 0-2.8 1.9-2.8 3.8V24H7V8z"/>
-      </svg>
-    </a>
-    <a href="https://github.com/yourusername" target="_blank" rel="noopener" aria-label="GitHub" class="hover:text-gray-900">
-      <!-- GitHub Icon SVG -->
-      <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" class="w-6 h-6">
-        <path d="M12 .5C5.73.5.5 5.73.5 12c0 5.08 3.29 9.39 7.87 10.91.58.11.79-.25.79-.56v-2.02c-3.2.7-3.87-1.54-3.87-1.54-.53-1.36-1.3-1.72-1.3-1.72-1.06-.73.08-.72.08-.72 1.17.08 1.78 1.2 1.78 1.2 1.04 1.78 2.72 1.27 3.38.97.11-.75.41-1.27.74-1.57-2.55-.29-5.23-1.28-5.23-5.7 0-1.26.45-2.28 1.2-3.08-.12-.3-.52-1.52.11-3.17 0 0 .97-.31 3.18 1.18a11.1 11.1 0 012.9-.39 11.1 11.1 0 012.9.39c2.21-1.5 3.18-1.18 3.18-1.18.63 1.65.23 2.87.11 3.17.75.8 1.2 1.82 1.2 3.08 0 4.44-2.69 5.41-5.25 5.7.42.36.8 1.07.8 2.15v3.19c0 .31.21.67.8.56A10.52 10.52 0 0023.5 12c0-6.27-5.23-11.5-11.5-11.5z"/>
-      </svg>
-    </a>
-    <a href="https://x.com/yourusername" target="_blank" rel="noopener" aria-label="X (formerly Twitter)" class="hover:text-blue-500">
-      <!-- X Icon SVG -->
-      <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" class="w-6 h-6">
-        <path d="M22.46 6c-.77.35-1.6.59-2.46.69a4.3 4.3 0 001.88-2.37 8.59 8.59 0 01-2.72 1.04 4.28 4.28 0 00-7.3 3.9 12.17 12.17 0 01-8.83-4.48 4.28 4.28 0 001.32 5.72 4.25 4.25 0 01-1.94-.54v.05a4.28 4.28 0 003.44 4.2 4.3 4.3 0 01-1.93.07 4.28 4.28 0 003.99 2.97A8.58 8.58 0 012 19.54 12.1 12.1 0 008.29 21c7.55 0 11.68-6.26 11.68-11.68 0-.18-.01-.35-.02-.53A8.34 8.34 0 0022.46 6z"/>
-      </svg>
-    </a>
-  </div>
-</section>
-    <footer class="bg-gray-800 text-white py-8">
-        <div class="max-w-6xl mx-auto px-4 text-center">
-        <p class="text-sm">© 2023 Pelumi Peter. All rights reserved.</p>
-        <p class="text-xs mt-2">Built with passion and creativity.</p>
+            </div>
+            <div class="absolute top-4 right-4 bg-white/20 backdrop-blur-md px-3 py-1 rounded-full text-white text-sm">IoT</div>
+          </div>
+          <div class="p-6">
+            <h3 class="font-bold text-xl mb-3">Low-Power IoT Attendance System</h3>
+            <p class="text-gray-600 mb-4">A battery-efficient, wireless attendance monitoring system using IoT technology designed to record and transmit attendance data reliably over long periods.</p>
+            <div class="flex flex-wrap gap-2 mb-4">
+              <span class="bg-blue-100 text-blue-800 px-2 py-1 rounded-full text-xs">IoT</span>
+              <span class="bg-green-100 text-green-800 px-2 py-1 rounded-full text-xs">Low Power</span>
+              <span class="bg-purple-100 text-purple-800 px-2 py-1 rounded-full text-xs">Hardware</span>
+            </div>
+            <button class="w-full bg-blue-600 text-white py-3 rounded-xl hover:bg-blue-700 transition-all duration-300 transform hover:scale-105">
+              View Project
+            </button>
+          </div>
         </div>
-    </footer>
+        
+        <div class="project-card bg-white rounded-3xl overflow-hidden shadow-lg card-hover animate-slide-up" style="animation-delay: 0.2s;">
+          <div class="h-48 bg-gradient-to-br from-purple-400 to-purple-600 relative overflow-hidden">
+            <div class="absolute inset-0 flex items-center justify-center text-white text-6xl bg-center bg-cover"
+                 style="background-image: url('image/Gemini_Generated_Image_rrez4orrez4orrez.png');">
+              
+            </div>
+            <div class="absolute top-4 right-4 bg-white/20 backdrop-blur-md px-3 py-1 rounded-full text-white text-sm">AI</div>
+          </div>
+          <div class="p-6">
+            <h3 class="font-bold text-xl mb-3">AI Lesson Notes Generator</h3>
+            <p class="text-gray-600 mb-4">An intelligent AI-powered tool that automatically generates detailed, customizable lesson notes from curriculum input, enhancing educators' productivity.</p>
+            <div class="flex flex-wrap gap-2 mb-4">
+              <span class="bg-purple-100 text-purple-800 px-2 py-1 rounded-full text-xs">AI</span>
+              <span class="bg-blue-100 text-blue-800 px-2 py-1 rounded-full text-xs">React</span>
+              <span class="bg-green-100 text-green-800 px-2 py-1 rounded-full text-xs">Education</span>
+            </div>
+            <button class="w-full bg-purple-600 text-white py-3 rounded-xl hover:bg-purple-700 transition-all duration-300 transform hover:scale-105">
+              <a href="https://lessonsquill.com/">View Project</a>View Project
+            </button>
+          </div>
+        </div>
+        
+        <div class="project-card bg-white rounded-3xl overflow-hidden shadow-lg card-hover animate-slide-up" style="animation-delay: 0.4s;">
+          <div class="h-48 bg-gradient-to-br from-green-400 to-green-600 relative overflow-hidden">
+             <div class="absolute inset-0 flex items-center justify-center text-white text-6xl bg-center bg-cover"
+                 style="background-image: url('image/Screenshot_12-8-2025_10540_127.0.0.1.jpeg');">
+            </div>
+            <div class="absolute top-4 right-4 bg-white/20 backdrop-blur-md px-3 py-1 rounded-full text-white text-sm">Design</div>
+          </div>
+          <div class="p-6">
+            <h3 class="font-bold text-xl mb-3">Deco Interio</h3>
+            <p class="text-gray-600 mb-4">A modern interior design project showcasing creative space planning and aesthetic enhancements tailored to client preferences.</p>
+            <div class="flex flex-wrap gap-2 mb-4">
+              <span class="bg-green-100 text-green-800 px-2 py-1 rounded-full text-xs">Design</span>
+              <span class="bg-orange-100 text-orange-800 px-2 py-1 rounded-full text-xs">Interior</span>
+              <span class="bg-pink-100 text-pink-800 px-2 py-1 rounded-full text-xs">Creative</span>
+            </div>
+            <button class="w-full bg-green-600 text-white py-3 rounded-xl hover:bg-green-700 transition-all duration-300 transform hover:scale-105">
+             <a href="https://github.com/ppeterz/deco.git">View Project</a> 
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Founder Achievement Section -->
+  <section class="py-20 bg-white">
+    <div class="max-w-6xl mx-auto px-4">
+      <div class="text-center mb-16 animate-slide-up">
+        <h2 class="text-4xl font-bold mb-4">Founder & Product Creator</h2>
+        <p class="text-xl text-gray-600">Building products that make a difference</p>
+      </div>
+      
+      <div class="grid md:grid-cols-3 gap-8">
+        <div class="text-center bg-gradient-to-br from-blue-50 to-blue-100 p-8 rounded-3xl card-hover animate-slide-up">
+          <div class="w-20 h-20 bg-blue-600 rounded-full flex items-center justify-center text-white text-3xl mx-auto mb-6">🚀</div>
+          <h3 class="font-bold text-2xl mb-3">MVP Launch</h3>
+          <p class="text-gray-600 mb-4">Successfully launched a Minimum Viable Product that garnered positive user feedback and market interest. Bootstrapped and live.</p>
+          <div class="text-3xl font-bold text-blue-600">100%</div>
+          <div class="text-sm text-gray-500">Bootstrap Success</div>
+        </div>
+        
+        <div class="text-center bg-gradient-to-br from-green-50 to-green-100 p-8 rounded-3xl card-hover animate-slide-up" style="animation-delay: 0.2s;">
+          <div class="w-20 h-20 bg-green-600 rounded-full flex items-center justify-center text-white text-3xl mx-auto mb-6">👥</div>
+          <h3 class="font-bold text-2xl mb-3">Daily Users</h3>
+          <p class="text-gray-600 mb-4">Achieved strong user engagement within the first month of launch, demonstrating product-market fit.</p>
+          <div class="text-3xl font-bold text-green-600" data-count="100">0</div>
+          <div class="text-sm text-gray-500">Active Users</div>
+        </div>
+        
+        <div class="text-center bg-gradient-to-br from-purple-50 to-purple-100 p-8 rounded-3xl card-hover animate-slide-up" style="animation-delay: 0.4s;">
+          <div class="w-20 h-20 bg-purple-600 rounded-full flex items-center justify-center text-white text-3xl mx-auto mb-6">🤖</div>
+          <h3 class="font-bold text-2xl mb-3">AI Integration</h3>
+          <p class="text-gray-600 mb-4">Integrated advanced AI features into the product, enhancing user experience and automating key functionalities.</p>
+          <div class="text-3xl font-bold text-purple-600">AI</div>
+          <div class="text-sm text-gray-500">Powered Features</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section id="contact" class="py-20 bg-gray-900 text-white">
+    <div class="max-w-4xl mx-auto px-4">
+      <div class="text-center mb-16 animate-slide-up">
+        <h2 class="text-4xl font-bold mb-4">Let's Build Something Amazing</h2>
+        <p class="text-xl text-gray-300">Ready to turn your ideas into reality? Let's talk!</p>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-16">
+        <div class="animate-slide-up">
+          <form class="space-y-6" onsubmit="handleSubmit(event)">
+            <div class="space-y-4">
+              <div>
+                <label for="name" class="block mb-2 font-medium">Your Name</label>
+                <input
+                  type="text"
+                  id="name"
+                  name="name"
+                  required
+                  placeholder="Enter your full name"
+                  class="w-full bg-gray-800 border border-gray-700 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent transition-all duration-300"
+                />
+              </div>
+
+              <div>
+                <label for="email" class="block mb-2 font-medium">Email Address</label>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  required
+                  placeholder="you@example.com"
+                  class="w-full bg-gray-800 border border-gray-700 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent transition-all duration-300"
+                />
+              </div>
+
+              <div>
+                <label for="message" class="block mb-2 font-medium">Your Message</label>
+                <textarea
+                  id="message"
+                  name="message"
+                  rows="5"
+                  required
+                  placeholder="Tell me about your project..."
+                  class="w-full bg-gray-800 border border-gray-700 rounded-xl px-4 py-3 resize-none focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent transition-all duration-300"
+                ></textarea>
+              </div>
+            </div>
+
+            <button
+              type="submit"
+              class="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold py-4 rounded-xl hover:from-blue-700 hover:to-purple-700 transition-all duration-300 transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-blue-500/50"
+            >
+              Send Message 
+            </button>
+          </form>
+        </div>
+
+        <div class="animate-slide-up" style="animation-delay: 0.3s;">
+          <div class="space-y-8">
+            <div>
+              <h3 class="text-2xl font-bold mb-6">Get in Touch</h3>
+              <div class="space-y-4">
+                <div class="flex items-center space-x-4">
+                  <div class="w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center">📧</div>
+                  <div>
+                    <div class="font-medium">Email</div>
+                    <div class="text-gray-400">hello@pelumipeter.dev</div>
+                  </div>
+                </div>
+                
+                <div class="flex items-center space-x-4">
+                  <div class="w-12 h-12 bg-green-600 rounded-full flex items-center justify-center">📱</div>
+                  <div>
+                    <div class="font-medium">Location</div>
+                    <div class="text-gray-400">Ibadan, Nigeria</div>
+                  </div>
+                </div>
+                
+                <div class="flex items-center space-x-4">
+                  <div class="w-12 h-12 bg-purple-600 rounded-full flex items-center justify-center">⚡</div>
+                  <div>
+                    <div class="font-medium">Response Time</div>
+                    <div class="text-gray-400">Within 24 hours</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="flex space-x-6">
+              <a href="https://www.linkedin.com/in/pelumi-peter" class="w-12 h-12 bg-white-600 rounded-full flex items-center justify-center hover:bg-white-500 transition-all duration-300 transform hover:scale-110">
+                <div class="absolute inset-0 flex items-center justify-center text-white text-6xl bg-center bg-cover"
+                 style="background-image: url('image/linkedin-logo-thin-svgrepo-com.svg');">
+              
+            </div>
+              </a>
+              <a href="https://github.com/ppeterz/" class="w-12 h-12 bg-white rounded-full flex items-center justify-center hover:bg-white transition-all duration-300 transform hover:scale-110">
+                 <div class="absolute inset-0 flex items-center justify-center text-white text-6xl bg-center bg-cover"
+                 style="background-image: url('image/github-142-svgrepo-com.svg');">
+              
+            </div>
+              </a>
+              <a href="#" class="w-12 h-12 bg-white rounded-full flex items-center justify-center hover:bg-blue-600 transition-all duration-300 transform hover:scale-110">
+                 <div class="absolute inset-0 flex items-center justify-center text-white text-6xl bg-center bg-cover"
+                 style="background-image: url('image/twitter-logo-thin-svgrepo-com.svg');">
+              
+            </div>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-black py-12">
+    <div class="max-w-6xl mx-auto px-4 text-center">
+      <div class="mb-8">
+        <div class="w-16 h-16 bg-gradient-to-br from-blue-600 to-purple-600 rounded-2xl flex items-center justify-center text-white font-bold text-2xl mx-auto mb-4">
+          PP
+        </div>
+        <p class="text-gray-400 mb-4">Building the future, one project at a time.</p>
+      </div>
+      
+      <div class="border-t border-gray-800 pt-8">
+        <p class="text-gray-400 text-sm">© 2025 Pelumi Peter. All rights reserved.</p>
+        <p class="text-gray-500 text-xs mt-2">Crafted with passion and creativity ❤️</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Smooth scrolling
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }
+      });
+    });
+
+    // Navbar scroll effect
+    window.addEventListener('scroll', () => {
+      const header = document.querySelector('header');
+      if (window.scrollY > 100) {
+        header.classList.add('bg-white/90');
+        header.classList.remove('bg-white/80');
+      } else {
+        header.classList.add('bg-white/80');
+        header.classList.remove('bg-white/90');
+      }
+    });
+
+    // Intersection Observer for animations
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('animate-slide-up');
+        }
+      });
+    }, observerOptions);
+
+    // Observe all elements with animation classes
+    document.querySelectorAll('.animate-slide-up').forEach(el => {
+      observer.observe(el);
+    });
+
+    // Skill bars animation
+    const skillBars = document.querySelectorAll('.skill-bar');
+    const skillObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const bar = entry.target;
+          const width = bar.getAttribute('data-width');
+          setTimeout(() => {
+            bar.style.width = width;
+          }, 200);
+        }
+      });
+    }, observerOptions);
+
+    skillBars.forEach(bar => {
+      bar.style.transition = 'width 2s ease-in-out';
+      skillObserver.observe(bar);
+    });
+
+    // Counter animation
+    const counterElement = document.querySelector('[data-count]');
+    const countObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const target = parseInt(entry.target.getAttribute('data-count'));
+          let count = 0;
+          const increment = target / 100;
+          
+          const timer = setInterval(() => {
+            count += increment;
+            if (count >= target) {
+              count = target;
+              clearInterval(timer);
+            }
+            entry.target.textContent = Math.floor(count) + '+';
+          }, 30);
+        }
+      });
+    }, observerOptions);
+
+    if (counterElement) {
+      countObserver.observe(counterElement);
+    }
+
+    // Form submission
+    function handleSubmit(event) {
+      event.preventDefault();
+      const button = event.target.querySelector('button[type="submit"]');
+      const originalText = button.innerHTML;
+      
+      button.innerHTML = 'Sending... ⏳';
+      button.disabled = true;
+      
+      // Simulate form submission
+      setTimeout(() => {
+        button.innerHTML = 'Message Sent! ✅';
+        setTimeout(() => {
+          button.innerHTML = originalText;
+          button.disabled = false;
+          event.target.reset();
+        }, 2000);
+      }, 1500);
+    }
+
+    // Parallax effect for hero section
+    window.addEventListener('scroll', () => {
+      const scrolled = window.pageYOffset;
+      const parallaxElements = document.querySelectorAll('.parallax');
+      
+      parallaxElements.forEach(element => {
+        const speed = element.dataset.speed || 0.5;
+        element.style.transform = `translateY(${scrolled * speed}px)`;
+      });
+    });
+
+    // Typing animation for hero text
+    const typingElement = document.querySelector('.typing-animation');
+    if (typingElement) {
+      const text = typingElement.textContent;
+      typingElement.textContent = '';
+      typingElement.classList.add('typing-animation');
+      
+      let i = 0;
+      const typeWriter = () => {
+        if (i < text.length) {
+          typingElement.textContent += text.charAt(i);
+          i++;
+          setTimeout(typeWriter, 100);
+        }
+      };
+      
+      setTimeout(typeWriter, 1000);
+    }
+
+    // Project cards hover effect
+    document.querySelectorAll('.project-card').forEach(card => {
+      card.addEventListener('mouseenter', function() {
+        this.style.transform = 'translateY(-12px) scale(1.02)';
+      });
+      
+      card.addEventListener('mouseleave', function() {
+        this.style.transform = 'translateY(0) scale(1)';
+      });
+    });
+
+    // Add loading animation
+    window.addEventListener('load', () => {
+      document.body.classList.add('loaded');
+      
+      // Stagger animations for better UX
+      const elements = document.querySelectorAll('.animate-slide-up');
+      elements.forEach((el, index) => {
+        el.style.animationDelay = `${index * 0.1}s`;
+      });
+    });
+
+    // Mobile menu toggle (if needed)
+    const mobileMenuButton = document.querySelector('[data-mobile-menu]');
+    const mobileMenu = document.querySelector('[data-mobile-menu-content]');
+    
+    if (mobileMenuButton && mobileMenu) {
+      mobileMenuButton.addEventListener('click', () => {
+        mobileMenu.classList.toggle('hidden');
+      });
+    }
+
+    // Add scroll progress indicator
+    const scrollProgress = document.createElement('div');
+    scrollProgress.className = 'fixed top-0 left-0 h-1 bg-gradient-to-r from-blue-600 to-purple-600 z-50 transition-all duration-300';
+    document.body.appendChild(scrollProgress);
+
+    window.addEventListener('scroll', () => {
+      const scrollPercent = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
+      scrollProgress.style.width = scrollPercent + '%';
+    });
+  </script>
 </body>
 </html>
