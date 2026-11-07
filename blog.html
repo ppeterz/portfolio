@@ -1,195 +1,185 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Engineering Lab | Pelumi Peter - IoT, Frontend & Product Development</title>
-  <meta name="description" content="Practical engineering guides: IoT power optimization, frontend design principles, and rapid MVP development. Real-world solutions for modern challenges." />
-  <meta name="keywords" content="IoT power efficiency, frontend design, MVP development, hardware engineering, software architecture" />
-  <link rel="canonical" href="https://example.com/engineering-lab">
-  
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          fontFamily: {
-            'inter': ['Inter', 'system-ui', 'sans-serif'],
-          },
-          animation: {
-            'fade-in': 'fadeIn 0.6s ease-out',
-            'slide-up': 'slideUp 0.8s ease-out',
-            'bounce-gentle': 'bounceGentle 2s infinite',
-            'glow': 'glow 2s ease-in-out infinite alternate',
-            'float': 'float 6s ease-in-out infinite',
-            'pulse-slow': 'pulse 3s ease-in-out infinite',
-          },
-        }
-      }
-    }
-  </script>
-  
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Lab notes · Pelumi Peter</title>
+  <meta name="description" content="Practical engineering notes from Pelumi Peter: IoT power efficiency, frontend design for engineers, and taking a product from idea to MVP in 30 days." />
+  <meta name="theme-color" content="#f3f2ee" media="(prefers-color-scheme: light)" />
+  <meta name="theme-color" content="#0d0d0c" media="(prefers-color-scheme: dark)" />
+  <meta property="og:title" content="Lab notes · Pelumi Peter" />
+  <meta property="og:description" content="Notes from the bench: power budgets, interfaces people understand, and shipping fast." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://pelumi-peter.netlify.app/blog.html" />
+  <link rel="canonical" href="https://pelumi-peter.netlify.app/blog.html" />
+  <meta property="og:image" content="https://pelumi-peter.netlify.app/image/og-card.jpg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+  <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" />
+  <link rel="stylesheet" href="css/site.css" />
+  <script>document.documentElement.classList.add('js');</script>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
-    
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
-    
-    @keyframes slideUp {
-      from { 
-        opacity: 0; 
-        transform: translateY(30px); 
-      }
-      to { 
-        opacity: 1; 
-        transform: translateY(0); 
-      }
-    }
-    
-    @keyframes bounceGentle {
-      0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
-      40% { transform: translateY(-10px); }
-      60% { transform: translateY(-5px); }
-    }
-    
-    @keyframes glow {
-      from { box-shadow: 0 0 20px rgba(59, 130, 246, 0.3); }
-      to { box-shadow: 0 0 30px rgba(59, 130, 246, 0.6), 0 0 40px rgba(59, 130, 246, 0.2); }
-    }
-    
-    @keyframes float {
-      0%, 100% { transform: translateY(0px); }
-      50% { transform: translateY(-15px); }
-    }
-    
-    .gradient-bg {
-      background: linear-gradient(135deg, #1e3a8a 0%, #3730a3 50%, #581c87 100%);
-    }
-    
-    .glass-effect {
-      background: rgba(255, 255, 255, 0.1);
-      backdrop-filter: blur(15px);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-    }
-    
-    .article-card {
-      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    }
-    
-    .article-card:hover {
-      transform: translateY(-12px) scale(1.02);
-      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
-    }
-    
-    .reading-progress {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 0%;
-      height: 3px;
-      background: linear-gradient(90deg, #3b82f6, #8b5cf6, #ec4899);
-      z-index: 1000;
-      transition: width 0.1s ease-out;
-    }
-    
-    .tag {
-      transition: all 0.3s ease;
-      cursor: pointer;
-    }
-    
-    .tag:hover {
-      transform: scale(1.1);
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-    }
-    
-    .code-block {
-      background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
-      border-left: 4px solid #3b82f6;
-    }
-    
-    .quick-nav {
-      position: sticky;
-      top: 100px;
-      background: rgba(255, 255, 255, 0.95);
-      backdrop-filter: blur(10px);
-      border-radius: 16px;
-      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-    }
-    
-    .section-indicator {
-      position: relative;
-    }
-    
-    .section-indicator::before {
-      content: '';
-      position: absolute;
-      left: -20px;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 4px;
-      height: 0;
-      background: linear-gradient(45deg, #3b82f6, #8b5cf6);
-      border-radius: 2px;
-      transition: height 0.3s ease;
-    }
-    
-    .section-indicator.active::before {
-      height: 100%;
+    /* ---------- Reading progress ---------- */
+    .progress {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 60; height: 2px;
+      background: var(--accent); transform-origin: 0 50%; transform: scaleX(0);
+      pointer-events: none;
     }
 
-    .floating-elements {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      overflow: hidden;
-      z-index: 0;
+    /* ---------- Lab header + article index ---------- */
+    .lab-hero { padding-top: calc(var(--nav-h) + clamp(32px, 6vw, 72px)); padding-bottom: clamp(56px, 7vw, 96px); }
+    .lab-hero .lead { margin-top: 24px; max-width: 40ch; }
+    .toc .num { color: var(--accent-ink); }
+    .toc .eyebrow { display: flex; justify-content: space-between; }
+    .post .index-row { margin-bottom: 28px; }
+    .toc { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(14px, 2vw, 20px); margin-top: clamp(40px, 6vw, 64px); }
+    .toc a {
+      display: flex; flex-direction: column; gap: 6px;
+      background: var(--tile); border-radius: var(--radius-md); padding: 22px 22px 20px;
+      box-shadow: var(--shadow);
+      transition: transform 0.45s var(--ease-out), box-shadow 0.45s var(--ease-out);
+      -webkit-tap-highlight-color: transparent;
     }
-    
-    .floating-elements::before,
-    .floating-elements::after {
-      content: '';
-      position: absolute;
-      border-radius: 50%;
-      background: rgba(255, 255, 255, 0.1);
-      animation: float 8s ease-in-out infinite;
-    }
-    
-    .floating-elements::before {
-      width: 200px;
-      height: 200px;
-      top: 10%;
-      left: 10%;
-      animation-delay: 0s;
-    }
-    
-    .floating-elements::after {
-      width: 150px;
-      height: 150px;
-      top: 60%;
-      right: 10%;
-      animation-delay: -4s;
-    }
+    @media (hover: hover) { .toc a:hover { transform: translateY(-3px); box-shadow: var(--shadow-hover); } }
+    .toc a:active { transform: scale(0.98); transition-duration: 0.1s; }
+    .toc .eyebrow { margin: 0; font-size: 0.8125rem; }
+    .toc strong { margin-top: 18px; font-size: 1.375rem; font-weight: 600; letter-spacing: -0.035em; line-height: 1.15; }
+    .toc span:last-child { margin-top: auto; padding-top: 10px; font-size: 0.875rem; color: var(--ink-3); }
+    @media (max-width: 760px) { .toc { grid-template-columns: 1fr; } }
 
-    .article-hero {
-      position: relative;
-      overflow: hidden;
+    [data-tone="power"] { --tone: var(--c-energy); }
+    [data-tone="front"] { --tone: var(--c-print); }
+    [data-tone="mvp"] { --tone: var(--c-rfid); }
+    [data-tone] .eyebrow { color: var(--tone); }
+
+    /* ---------- Article ---------- */
+    .post { padding-block: clamp(72px, 9vw, 120px); border-top: 1px solid var(--hairline); }
+    .measure { max-width: 700px; margin-inline: auto; padding-inline: var(--gutter); }
+    .post-title { font-size: clamp(2.25rem, 5vw, 3.5rem); line-height: 1; letter-spacing: -0.045em; font-weight: 600; }
+    .meta { margin-top: 14px; font-size: 0.9375rem; color: var(--ink-3); }
+    .dek { margin-top: 22px; }
+
+    .prose { margin-top: 40px; font-size: 1.125rem; line-height: 1.65; letter-spacing: -0.012em; }
+    .prose > * + * { margin-top: 20px; }
+    .prose h3 { margin-top: 52px; font-size: 1.625rem; line-height: 1.15; letter-spacing: -0.035em; font-weight: 600; }
+    .prose h3 + p { margin-top: 12px; }
+    .prose strong { font-weight: 600; }
+    .prose ul.dots { display: grid; gap: 8px; }
+    .prose ul.dots li { position: relative; padding-left: 22px; }
+    .prose ul.dots li::before { content: ""; position: absolute; left: 3px; top: 0.66em; width: 6px; height: 6px; border-radius: 50%; background: var(--tone, var(--accent)); }
+
+    /* Code */
+    pre {
+      margin: 0; overflow-x: auto; padding: 20px 22px; border-radius: 16px;
+      background: #1d1d1f; color: #f5f5f7;
+      font: 0.875rem/1.65 ui-monospace, "SF Mono", Menlo, Consolas, monospace; letter-spacing: 0;
+      -webkit-overflow-scrolling: touch;
     }
-    
-    .article-hero::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(139, 92, 246, 0.1) 100%);
-      z-index: 1;
+    @media (prefers-color-scheme: dark) { pre { background: #161617; box-shadow: 0 0 0 1px var(--hairline); } }
+    pre .c { color: #8e8e93; }
+    pre .f { color: #6cb6ff; }
+    pre .n { color: #ffb86b; }
+    pre .s { color: #8ddb8c; }
+    pre .a { color: #d2a8ff; }
+    :not(pre) > code { font: 0.9em ui-monospace, "SF Mono", Menlo, Consolas, monospace; background: var(--chip); padding: 2px 6px; border-radius: 6px; }
+
+    /* Callout */
+    .callout { background: var(--bg-alt); border-radius: 18px; padding: 20px 22px; font-size: 1rem; }
+    .section-alt .callout, .callout.on-tile { background: var(--tile); }
+    .callout b { display: block; font-weight: 600; margin-bottom: 8px; }
+
+    /* Instead of / Do this */
+    .compare { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; font-size: 1rem; line-height: 1.5; }
+    .compare > div { border-radius: 18px; padding: 18px 20px; background: var(--bg-alt); }
+    .compare b { display: flex; align-items: center; gap: 8px; font-size: 0.8125rem; font-weight: 600; margin-bottom: 6px; }
+    .compare b::before { content: ""; width: 8px; height: 8px; border-radius: 50%; }
+    .compare .bad b { color: var(--ink-2); }
+    .compare .bad b::before { background: #ff453a; }
+    .compare .good b { color: var(--ink); }
+    .compare .good b::before { background: #30d158; }
+    .compare .good { box-shadow: inset 0 0 0 1.5px color-mix(in srgb, #30d158 45%, transparent); }
+    .wire { display: grid; gap: 6px; margin-top: 12px; padding: 14px; border-radius: 12px; background: var(--tile); }
+    .wire i { display: block; height: 8px; border-radius: 4px; background: var(--chip); }
+    .wire.cluttered { gap: 3px; padding: 8px; }
+    .wire.cluttered .row { display: flex; gap: 3px; }
+    .wire.cluttered i { height: 6px; background: color-mix(in srgb, #ff453a 22%, transparent); }
+    .wire.clean i:first-child { width: 70%; height: 12px; background: var(--ink-3); opacity: 0.5; }
+    .wire.clean i.btnbar { width: 40%; height: 18px; border-radius: 9px; background: var(--accent); margin-top: 6px; }
+    @media (max-width: 560px) { .compare { grid-template-columns: 1fr; } }
+
+    /* Grouped lists (stacks, metrics) */
+    .groups { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; font-size: 1rem; }
+    .groups > div { background: var(--bg-alt); border-radius: 18px; padding: 18px 20px; }
+    .groups b { display: block; font-weight: 600; margin-bottom: 8px; color: var(--tone, var(--ink)); }
+    .groups li { color: var(--ink-2); line-height: 1.6; }
+    .groups.two { grid-template-columns: repeat(2, 1fr); }
+    @media (max-width: 640px) { .groups, .groups.two { grid-template-columns: 1fr; } }
+    .rows { background: var(--bg-alt); border-radius: 18px; font-size: 1rem; overflow: hidden; }
+    .rows li { display: flex; justify-content: space-between; gap: 16px; padding: 14px 20px; }
+    .rows li + li { border-top: 1px solid var(--hairline); }
+    .rows li span:last-child { color: var(--ink-2); font-weight: 500; text-align: right; }
+
+    /* Template */
+    .template { border-radius: 18px; padding: 20px 22px; background: var(--bg-alt); font-size: 1.125rem; line-height: 1.6; }
+    .template mark { background: color-mix(in srgb, var(--tone) 16%, transparent); color: inherit; padding: 1px 6px; border-radius: 6px; font-weight: 600; }
+
+    /* Checklist (ticks are remembered on this device only) */
+    .checklist { border-radius: 18px; background: var(--bg-alt); padding: 8px 0; font-size: 1rem; }
+    .checklist header { display: flex; justify-content: space-between; align-items: baseline; padding: 10px 20px 6px; }
+    .checklist header b { font-weight: 600; }
+    .checklist header span { font-size: 0.875rem; color: var(--ink-3); font-variant-numeric: tabular-nums; }
+    .checklist ul { display: grid; grid-template-columns: 1fr 1fr; }
+    .checklist label { display: flex; align-items: center; gap: 12px; min-height: 48px; padding: 4px 20px; cursor: pointer; -webkit-tap-highlight-color: transparent; }
+    .checklist input {
+      appearance: none; -webkit-appearance: none; flex: none; margin: 0;
+      width: 22px; height: 22px; border-radius: 50%;
+      border: 1.5px solid var(--ink-3); display: grid; place-items: center;
+      transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.3s var(--ease-out);
+    }
+    .checklist input::after {
+      content: ""; width: 10px; height: 6px; margin-top: -2px;
+      border: solid var(--on-accent); border-width: 0 0 2px 2px; transform: rotate(-45deg) scale(0);
+      transition: transform 0.25s var(--ease-out);
+    }
+    .checklist input:checked { background: var(--accent); border-color: var(--accent); }
+    .checklist input:checked::after { transform: rotate(-45deg) scale(1); }
+    .checklist label:active input { transform: scale(0.9); }
+    .checklist input:checked + span { color: var(--ink-2); }
+    @media (max-width: 560px) { .checklist ul { grid-template-columns: 1fr; } }
+
+    /* Related project */
+    .related {
+      display: flex; align-items: center; justify-content: space-between; gap: 16px;
+      margin-top: 48px; padding: 20px 22px; border-radius: 18px;
+      background: var(--tile); box-shadow: var(--shadow);
+      transition: transform 0.45s var(--ease-out), box-shadow 0.45s var(--ease-out);
+      -webkit-tap-highlight-color: transparent;
+    }
+    @media (hover: hover) { .related:hover { transform: translateY(-2px); box-shadow: var(--shadow-hover); } }
+    .related:active { transform: scale(0.985); transition-duration: 0.1s; }
+    .related small { display: block; font-size: 0.8125rem; color: var(--ink-3); font-weight: 500; }
+    .related strong { display: block; margin-top: 2px; font-weight: 600; letter-spacing: -0.015em; }
+    .related svg { flex: none; width: 9px; height: 14px; color: var(--ink-3); }
+
+    /* ---------- Closing CTA ---------- */
+    .cta { text-align: center; }
+    .cta .lead { margin: 18px auto 32px; max-width: 30ch; }
+
+    @media (prefers-reduced-motion: reduce) {
+      .toc a, .related, .checklist input, .checklist input::after { transition-property: opacity, background-color, border-color, box-shadow !important; }
+      .toc a:hover, .toc a:active, .related:hover, .related:active { transform: none; }
+      .progress { display: none; }
+    }
+    @media (prefers-contrast: more) {
+      .toc a, .related { box-shadow: 0 0 0 1px var(--hairline); }
     }
   </style>
 
-  <!-- Enhanced structured data -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -197,791 +187,309 @@
       {
         "@type": "BlogPosting",
         "headline": "Optimizing Power Efficiency in IoT Devices",
-        "description": "Complete guide to extending battery life in IoT devices through smart hardware selection, firmware optimization, and communication strategies.",
-        "author": {"@type": "Person", "name": "Pelumi Peter"},
+        "description": "Extending battery life in IoT devices through hardware selection, firmware sleep modes and communication strategy.",
+        "author": { "@type": "Person", "name": "Pelumi Peter" },
         "datePublished": "2025-08-11",
-        "dateModified": "2025-08-11",
-        "mainEntityOfPage": {"@type": "WebPage", "@id": "https://example.com/iot-power-efficiency"},
-        "image": "https://example.com/images/iot-power-efficiency.jpg",
-        "keywords": ["IoT", "Power Efficiency", "Hardware Design", "Battery Life", "Low Power"],
-        "wordCount": 800
+        "keywords": ["IoT", "Power Efficiency", "Hardware Design", "Battery Life", "Low Power"]
       },
       {
         "@type": "BlogPosting",
         "headline": "Frontend Design Principles for Engineers",
-        "description": "Essential frontend principles every engineer should master: clarity, performance, accessibility, and user-centered design.",
-        "author": {"@type": "Person", "name": "Pelumi Peter"},
+        "description": "Clarity, performance and accessibility: the frontend principles every engineer should know.",
+        "author": { "@type": "Person", "name": "Pelumi Peter" },
         "datePublished": "2025-08-11",
-        "dateModified": "2025-08-11",
-        "mainEntityOfPage": {"@type": "WebPage", "@id": "https://example.com/frontend-design-principles"},
-        "image": "https://example.com/images/frontend-design.jpg",
-        "keywords": ["Frontend", "UI/UX", "Web Performance", "Accessibility", "React"],
-        "wordCount": 750
+        "keywords": ["Frontend", "UI/UX", "Web Performance", "Accessibility", "React"]
       },
       {
         "@type": "BlogPosting",
-        "headline": "How to Take a Product from Idea to MVP in 30 Days",
-        "description": "Proven playbook for rapid MVP development: validation strategies, feature prioritization, and launch tactics.",
-        "author": {"@type": "Person", "name": "Pelumi Peter"},
+        "headline": "From Idea to MVP in 30 Days",
+        "description": "A four-week playbook for shipping an MVP: validation, ruthless scope, and launching to learn.",
+        "author": { "@type": "Person", "name": "Pelumi Peter" },
         "datePublished": "2025-08-11",
-        "dateModified": "2025-08-11",
-        "mainEntityOfPage": {"@type": "WebPage", "@id": "https://example.com/mvp-in-30-days"},
-        "image": "https://example.com/images/mvp-development.jpg",
-        "keywords": ["MVP", "Product Development", "Startup", "Validation", "Lean"],
-        "wordCount": 900
+        "keywords": ["MVP", "Product Development", "Startup", "Validation", "Lean"]
       }
     ]
   }
   </script>
 </head>
+<body>
+  <div class="progress" aria-hidden="true"></div>
 
-<body class="bg-gray-50 text-gray-800 font-inter">
-  <div class="reading-progress"></div>
-  
-  <!-- Enhanced Header -->
-  <header class="bg-white/80 backdrop-blur-md shadow-sm sticky top-0 z-50">
-    <nav class="max-w-6xl mx-auto flex justify-between items-center p-4" aria-label="Primary navigation">
-      <div class="flex  justify-between space-x-3 text-2xl "> 
-        <div class="flex flex-row justify-center items-center space-x-3">
-          <div class="w-20 h-20  content-center"><img src="/image/pelumi-peter-high-resolution-logo-transparent (1).png" alt=""></div>
-          <div>
-            <div class="font-semibold text-lg">Engineering Lab</div>
-          <div class="text-xs text-gray-500">Practical Guides & Insights</div>
-          </div>
-        </div>
-      </div>
-      
-      <ul class="flex space-x-6 text-sm font-medium">
-        <li><a href="index.html" class="hover:text-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-600 px-3 py-2 rounded-lg transition-all duration-300">Home</a></li>
-        <li><a href="index.html#about" class="hover:text-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-600 px-3 py-2 rounded-lg transition-all duration-300">About</a></li>
-        <li><a href="#" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-all duration-300">Lab</a></li>
-      </ul>
-    </nav>
+  <header class="nav" id="nav">
+    <div class="container nav-inner">
+      <a class="brand" href="index.html">Pelumi Peter <span class="label">Embedded</span></a>
+      <nav aria-label="Primary">
+        <ul class="nav-links">
+          <li><a href="index.html#embedded">Devices</a></li>
+          <li><a href="index.html#software">Software</a></li>
+          <li><a href="index.html#about">About</a></li>
+          <li><a href="blog.html" aria-current="page">Lab notes</a></li>
+          <li><a href="index.html#contact" class="nav-cta">Contact</a></li>
+        </ul>
+      </nav>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-sheet" aria-label="Open menu">
+        <span></span><span></span>
+      </button>
+    </div>
+    <div class="nav-sheet" id="nav-sheet">
+      <a href="index.html#embedded"><span class="label">01</span>Devices</a>
+      <a href="index.html#software"><span class="label">02</span>Software</a>
+      <a href="index.html#about"><span class="label">03</span>About</a>
+      <a href="blog.html" aria-current="page"><span class="label">04</span>Lab notes</a>
+      <a href="index.html#contact"><span class="label">05</span>Contact</a>
+    </div>
   </header>
 
-  <!-- Hero Section -->
-  <section class="gradient-bg relative py-20 overflow-hidden">
-    <div class="floating-elements"></div>
-    
-    <div class="max-w-6xl mx-auto px-4 relative z-10">
-      <div class="text-center animate-slide-up">
-        <div class="inline-flex items-center bg-white/20 backdrop-blur-md text-white px-6 py-3 rounded-full text-sm font-medium mb-6">
-          <span class="w-2 h-2 bg-green-400 rounded-full mr-2 animate-pulse"></span>
-          Latest Engineering Insights
-        </div>
-        
-        <h1 class="text-4xl md:text-6xl font-bold mb-6 text-white leading-tight">
-          Engineering <span class="bg-gradient-to-r from-yellow-400 to-orange-500 bg-clip-text text-transparent">Lab</span>
-        </h1>
-        
-        <p class="text-xl text-white/90 max-w-3xl mx-auto mb-8 leading-relaxed">
-          Dive deep into practical engineering solutions. From IoT power optimization to frontend architecture and rapid product development.
-        </p>
-        
-        <div class="flex flex-wrap justify-center gap-4 mb-12">
-          <span class="tag bg-white/20 backdrop-blur-md text-white px-4 py-2 rounded-full text-sm hover:bg-white/30">🔋 IoT Power</span>
-          <span class="tag bg-white/20 backdrop-blur-md text-white px-4 py-2 rounded-full text-sm hover:bg-white/30">💻 Frontend</span>
-          <span class="tag bg-white/20 backdrop-blur-md text-white px-4 py-2 rounded-full text-sm hover:bg-white/30">🚀 MVP Development</span>
-          <span class="tag bg-white/20 backdrop-blur-md text-white px-4 py-2 rounded-full text-sm hover:bg-white/30">⚡ Performance</span>
-        </div>
-      </div>
-    </div>
-    
-    <!-- Scroll indicator -->
-    <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce-gentle">
-      <div class="w-6 h-10 border-2 border-white/50 rounded-full flex justify-center">
-        <div class="w-1 h-3 bg-white/50 rounded-full mt-2 animate-pulse"></div>
-      </div>
-    </div>
-  </section>
+  <main>
+    <!-- ================= Lab header ================= -->
+    <section class="lab-hero">
+      <div class="container">
+        <div class="index-row label reveal"><span>04</span><span>Lab notes</span><span>3 articles</span></div>
+        <h1 class="display reveal" data-delay="1">Notes from<br>the bench.</h1>
+        <p class="lead reveal" data-delay="2">Practical guides from building devices and products: power budgets, interfaces people understand, and shipping fast.</p>
 
-  <main class="max-w-6xl mx-auto px-4 py-16 relative">
-    <!-- Quick Navigation -->
-    <nav class="quick-nav p-6 mb-12 animate-slide-up">
-      <h3 class="font-semibold text-lg mb-4 text-gray-800">Quick Navigation</h3>
-      <div class="grid md:grid-cols-3 gap-4">
-        <a href="#iot" class="section-indicator flex items-center p-3 rounded-lg hover:bg-blue-50 transition-all duration-300 group">
-          <div class="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center mr-3 group-hover:bg-blue-200 transition-colors">
-            
-          </div>
-          <div>
-            <div class="font-medium text-sm">IoT Power Efficiency</div>
-            <div class="text-xs text-gray-500">5 min read</div>
-          </div>
-        </a>
-        
-        <a href="#frontend" class="section-indicator flex items-center p-3 rounded-lg hover:bg-purple-50 transition-all duration-300 group">
-          <div class="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center mr-3 group-hover:bg-purple-200 transition-colors">
-            
-          </div>
-          <div>
-            <div class="font-medium text-sm">Frontend Principles</div>
-            <div class="text-xs text-gray-500">4 min read</div>
-          </div>
-        </a>
-        
-        <a href="#mvp" class="section-indicator flex items-center p-3 rounded-lg hover:bg-green-50 transition-all duration-300 group">
-          <div class="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center mr-3 group-hover:bg-green-200 transition-colors">
-            
-          </div>
-          <div>
-            <div class="font-medium text-sm">MVP in 30 Days</div>
-            <div class="text-xs text-gray-500">6 min read</div>
-          </div>
-        </a>
+        <nav class="toc" aria-label="Articles">
+          <a href="#iot" class="reveal" data-tone="power">
+            <span class="eyebrow"><span>Hardware</span><span class="num">01</span></span>
+            <strong>Optimizing power efficiency in IoT devices</strong>
+            <span>5 min read</span>
+          </a>
+          <a href="#frontend" class="reveal" data-delay="1" data-tone="front">
+            <span class="eyebrow"><span>Frontend</span><span class="num">02</span></span>
+            <strong>Frontend design principles for engineers</strong>
+            <span>4 min read</span>
+          </a>
+          <a href="#mvp" class="reveal" data-delay="2" data-tone="mvp">
+            <span class="eyebrow"><span>Product</span><span class="num">03</span></span>
+            <strong>From idea to MVP in 30 days</strong>
+            <span>6 min read</span>
+          </a>
+        </nav>
       </div>
-    </nav>
+    </section>
 
-    <!-- Article 1: IoT Power Efficiency -->
-    <article id="iot" class="article-card bg-white rounded-3xl p-8 mb-12 shadow-lg animate-slide-up">
-      <div class="article-hero bg-gradient-to-br from-blue-50 to-blue-100 -m-8 mb-8 p-8 rounded-t-3xl">
-        <div class="flex items-center justify-between mb-6">
-          <div class="flex items-center space-x-4">
-            <div class="w-16 h-16 bg-blue-600 rounded-2xl flex items-center justify-center text-white text-2xl">
-              🔋
-            </div>
-            <div>
-              <h2 class="text-3xl font-bold text-gray-800">Optimizing Power Efficiency in IoT Devices</h2>
-              <div class="flex items-center space-x-4 mt-2 text-sm text-gray-600">
-                <span>📅 August 11, 2025</span>
-                <span>⏱️ 5 min read</span>
-                <span>🏷️ Hardware</span>
-              </div>
-            </div>
-          </div>
-        </div>
-        
-        <p class="text-lg text-gray-700 leading-relaxed">
-          Power efficiency is the silent killer of IoT projects. A device that drains batteries becomes a maintenance nightmare. Here's how to build IoT systems that actually work in the real world.
-        </p>
-      </div>
+    <!-- ================= Article 1: IoT power ================= -->
+    <article class="post" id="iot" data-tone="power">
+      <div class="measure">
+        <header class="reveal">
+          <div class="index-row label"><span>01</span><span>Hardware</span><span><time datetime="2025-08-11">11 Aug 2025</time> · 5 min</span></div>
+          <h2 class="post-title">Optimizing power efficiency in IoT devices</h2>
+          <p class="lead dek">Power efficiency is the silent killer of IoT projects. A device that drains its battery becomes a maintenance job. Here's how to build IoT systems that last in the real world.</p>
+        </header>
 
-      <div class="space-y-8">
-        <div class="border-l-4 border-blue-500 pl-6">
-          <h3 class="text-xl font-semibold mb-4 flex items-center">
-            <span class="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center mr-3 text-blue-600">⚙️</span>
-            Smart Hardware Selection
-          </h3>
-          <p class="text-gray-700 mb-4">
-            Not all microcontrollers are created equal. Look for chips with reliable deep-sleep modes and peripheral shutdown features. The ESP32-C3, for example, can drop to 5µA in deep sleep while maintaining RTC and ULP functionality.
-          </p>
-          
-          <div class="code-block p-4 rounded-xl text-white text-sm overflow-x-auto mb-4">
-            <div class="text-gray-300 mb-2">// ESP32 Deep Sleep Configuration</div>
-            <div class="text-blue-300">esp_sleep_enable_timer_wakeup</div><div class="text-white">(</div><div class="text-green-300">30</div><div class="text-white"> * </div><div class="text-green-300">1000000</div><div class="text-white">); </div><div class="text-gray-400">// 30 seconds</div><br>
-            <div class="text-blue-300">esp_deep_sleep_start</div><div class="text-white">();</div>
+        <div class="prose">
+          <h3>Choose hardware that can sleep</h3>
+          <p>Not all microcontrollers are equal. Look for chips with dependable deep-sleep modes and the ability to shut peripherals down. The ESP32-C3, for example, drops to about 5&nbsp;µA in deep sleep while keeping its real-time clock running.</p>
+<pre><code><span class="c">// ESP32: sleep, then wake every 30 seconds</span>
+<span class="f">esp_sleep_enable_timer_wakeup</span>(<span class="n">30</span> * <span class="n">1000000ULL</span>);  <span class="c">// microseconds</span>
+<span class="f">esp_deep_sleep_start</span>();</code></pre>
+          <div class="callout">
+            <b>Tips</b>
+            <ul class="dots">
+              <li>Pick sensors with a standby current under 1&nbsp;µA.</li>
+              <li>Use voltage regulators that stay efficient at light loads.</li>
+              <li>Consider energy harvesting for outdoor deployments.</li>
+            </ul>
           </div>
-          
-          <div class="bg-gray-50 p-4 rounded-xl">
-            <h4 class="font-medium mb-2">💡 Pro Tips:</h4>
-            <ul class="text-sm text-gray-700 space-y-1">
-              <li>• Choose sensors with low standby current (< 1µA)</li>
-              <li>• Use voltage regulators with high efficiency at low loads</li>
-              <li>• Consider energy harvesting for outdoor deployments</li>
+
+          <h3>Keep the radio off</h3>
+          <p>Wireless radios are the hungriest part of most devices. The goal is the least radio-on time that still gives a reliable link: batch your data, use efficient protocols, and retry with care.</p>
+          <div class="compare">
+            <div class="bad"><b>Instead of</b>Streaming a reading every second over Wi-Fi, which can draw 200&nbsp;mA or more the whole time.</div>
+            <div class="good"><b>Do this</b>Collect 10 minutes of data, send it in one burst and sleep for the rest. Average draw: 2 to 5&nbsp;mA.</div>
+          </div>
+
+          <div class="checklist" data-checklist="iot">
+            <header><b>Quick wins</b><span data-count></span></header>
+            <ul>
+              <li><label><input type="checkbox" /><span>Enable MCU deep sleep</span></label></li>
+              <li><label><input type="checkbox" /><span>Batch data before sending</span></label></li>
+              <li><label><input type="checkbox" /><span>Use low-power sensors</span></label></li>
+              <li><label><input type="checkbox" /><span>Shorten radio wake-up time</span></label></li>
+              <li><label><input type="checkbox" /><span>Add power monitoring</span></label></li>
+              <li><label><input type="checkbox" /><span>Consider energy harvesting</span></label></li>
             </ul>
           </div>
         </div>
 
-        <div class="border-l-4 border-green-500 pl-6">
-          <h3 class="text-xl font-semibold mb-4 flex items-center">
-            <span class="w-8 h-8 bg-green-100 rounded-lg flex items-center justify-center mr-3 text-green-600">📡</span>
-            Intelligent Communication Strategies
-          </h3>
-          <p class="text-gray-700 mb-4">
-            Wireless radios are power hungry beasts. The key is minimizing radio-on time while maintaining reliable connectivity. Batch your data, use efficient protocols, and implement smart retry logic.
-          </p>
-          
-          <div class="grid md:grid-cols-2 gap-4 mb-4">
-            <div class="bg-red-50 border border-red-200 p-4 rounded-xl">
-              <h4 class="font-medium text-red-800 mb-2"> Power Wasting Pattern</h4>
-              <p class="text-sm text-red-700">Streaming sensor data every second via WiFi can consume 200+ mA continuously.</p>
-            </div>
-            <div class="bg-green-50 border border-green-200 p-4 rounded-xl">
-              <h4 class="font-medium text-green-800 mb-2" Efficient Pattern</h4>
-              <p class="text-sm text-green-700">Batch 10 minutes of data, transmit in one burst, sleep for 9.5 minutes. Average: 2-5 mA.</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="bg-blue-50 p-6 rounded-2xl">
-          <h3 class="text-xl font-semibold mb-4 text-blue-800">Quick Wins Checklist</h3>
-          <div class="grid md:grid-cols-2 gap-4">
-            <div class="space-y-2">
-              <label class="flex items-center space-x-3 cursor-pointer">
-                <input type="checkbox" class="w-5 h-5 text-blue-600 rounded">
-                <span class="text-sm">Enable MCU deep sleep modes</span>
-              </label>
-              <label class="flex items-center space-x-3 cursor-pointer">
-                <input type="checkbox" class="w-5 h-5 text-blue-600 rounded">
-                <span class="text-sm">Implement data batching</span>
-              </label>
-              <label class="flex items-center space-x-3 cursor-pointer">
-                <input type="checkbox" class="w-5 h-5 text-blue-600 rounded">
-                <span class="text-sm">Use low-power sensors</span>
-              </label>
-            </div>
-            <div class="space-y-2">
-              <label class="flex items-center space-x-3 cursor-pointer">
-                <input type="checkbox" class="w-5 h-5 text-blue-600 rounded">
-                <span class="text-sm">Optimize radio wake-up times</span>
-              </label>
-              <label class="flex items-center space-x-3 cursor-pointer">
-                <input type="checkbox" class="w-5 h-5 text-blue-600 rounded">
-                <span class="text-sm">Add power monitoring</span>
-              </label>
-              <label class="flex items-center space-x-3 cursor-pointer">
-                <input type="checkbox" class="w-5 h-5 text-blue-600 rounded">
-                <span class="text-sm">Consider energy harvesting</span>
-              </label>
-            </div>
-          </div>
-        </div>
-
-        <div class="text-center">
-          <a href="#" class="inline-flex items-center bg-blue-600 text-white px-6 py-3 rounded-xl hover:bg-blue-700 transition-all duration-300 transform hover:scale-105">
-             Read Full IoT Power Guide
-            <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-            </svg>
-          </a>
-        </div>
+        <a class="related reveal" href="index.html#energy-meter">
+          <div><small>From the bench</small><strong>Energy Meter V3: measuring real power at 4&nbsp;kHz on an ESP32</strong></div>
+          <svg viewBox="0 0 9 14" aria-hidden="true"><path d="M1.5 1.5 7 7l-5.5 5.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
       </div>
     </article>
 
-    <!-- Article 2: Frontend Design -->
-    <article id="frontend" class="article-card bg-white rounded-3xl p-8 mb-12 shadow-lg animate-slide-up" style="animation-delay: 0.2s;">
-      <div class="article-hero bg-gradient-to-br from-purple-50 to-purple-100 -m-8 mb-8 p-8 rounded-t-3xl">
-        <div class="flex items-center justify-between mb-6">
-          <div class="flex items-center space-x-4">
-            <div class="w-16 h-16 bg-purple-600 rounded-2xl flex items-center justify-center text-white text-2xl">
-              💻
+    <!-- ================= Article 2: Frontend ================= -->
+    <article class="post" id="frontend" data-tone="front">
+      <div class="measure">
+        <header class="reveal">
+          <div class="index-row label"><span>02</span><span>Frontend</span><span><time datetime="2025-08-11">11 Aug 2025</time> · 4 min</span></div>
+          <h2 class="post-title">Frontend design principles for engineers</h2>
+          <p class="lead dek">Great frontend isn't only about pretty interfaces. It's about experiences people actually want to use. Here's what every engineer should know.</p>
+        </header>
+
+        <div class="prose">
+          <h3>Clarity above all</h3>
+          <p>Every interface should pass the five-second test: can a new user tell what to do within five seconds? Use consistent type, a clear hierarchy and deliberate white space.</p>
+          <div class="compare">
+            <div class="bad"><b>Cluttered</b>Everything competes, so nothing leads.
+              <div class="wire cluttered" aria-hidden="true"><i></i><div class="row"><i style="width:30%"></i><i style="width:22%"></i><i style="width:40%"></i></div><i></i><div class="row"><i style="width:45%"></i><i style="width:45%"></i></div></div>
             </div>
-            <div>
-              <h2 class="text-3xl font-bold text-gray-800">Frontend Design Principles for Engineers</h2>
-              <div class="flex items-center space-x-4 mt-2 text-sm text-gray-600">
-                <span> August 11, 2025</span>
-                <span>4 min read</span>
-                <span> Frontend</span>
-              </div>
+            <div class="good"><b>Clean</b>One heading, one line of context, one action.
+              <div class="wire clean" aria-hidden="true"><i></i><i></i><i class="btnbar"></i></div>
             </div>
           </div>
-        </div>
-        
-        <p class="text-lg text-gray-700 leading-relaxed">
-          Great frontend isn't just about pretty interfaces—it's about creating experiences that users actually want to use. Here's what every engineer should know.
-        </p>
-      </div>
 
-      <div class="space-y-8">
-        <div class="border-l-4 border-purple-500 pl-6">
-          <h3 class="text-xl font-semibold mb-4 flex items-center">
-            <span class="w-8 h-8 bg-purple-100 rounded-lg flex items-center justify-center mr-3 text-purple-600">🎯</span>
-            Clarity Above All
-          </h3>
-          <p class="text-gray-700 mb-4">
-            Every interface should pass the "5-second test"—can a new user understand what to do within 5 seconds? Use consistent typography, clear visual hierarchy, and purposeful white space.
-          </p>
-          
-          <div class="grid md:grid-cols-2 gap-4 mb-4">
-            <div class="bg-red-50 border border-red-200 p-4 rounded-xl">
-              <h4 class="font-medium text-red-800 mb-2"> Cluttered Design</h4>
-              <div class="text-xs bg-red-100 p-2 rounded">
-                <div class="bg-red-200 h-3 mb-1 rounded"></div>
-                <div class="flex gap-1">
-                  <div class="bg-red-200 h-2 w-8 rounded"></div>
-                  <div class="bg-red-200 h-2 w-6 rounded"></div>
-                  <div class="bg-red-200 h-2 w-10 rounded"></div>
-                </div>
-                <div class="bg-red-200 h-2 w-full mt-1 rounded"></div>
-              </div>
-            </div>
-            <div class="bg-green-50 border border-green-200 p-4 rounded-xl">
-              <h4 class="font-medium text-green-800 mb-2"> Clean Design</h4>
-              <div class="text-xs bg-green-100 p-2 rounded">
-                <div class="bg-green-200 h-4 mb-3 rounded w-3/4"></div>
-                <div class="bg-green-200 h-2 w-full mb-2 rounded"></div>
-                <div class="bg-green-200 h-6 w-20 rounded"></div>
-              </div>
-            </div>
+          <h3>Performance is UX</h3>
+          <p>Speed shapes how people feel about a product and how it performs as a business. A 100&nbsp;ms delay can cut conversions by 7%. Watch the Core Web Vitals and how fast the page <em>feels</em>, not just how fast it is.</p>
+          <div class="groups">
+            <div><b>Load less</b><ul><li>Compress and lazy-load images</li><li>Minify CSS and JS</li><li>Serve static files from a CDN</li></ul></div>
+            <div><b>Load smarter</b><ul><li>Split code by route</li><li>Speed up first paint</li><li>Cut time to interactive</li></ul></div>
+            <div><b>Measure</b><ul><li>Lighthouse CI</li><li>Web Vitals in the field</li><li>Error tracking</li></ul></div>
+          </div>
+
+          <h3>Accessibility is non-negotiable</h3>
+          <p>About one in six people worldwide lives with a disability. Accessible design is the right thing to do, it's good business, and it usually makes the product easier for everyone.</p>
+<pre><code><span class="c">// A button that says what it does, and what it's doing</span>
+&lt;<span class="f">button</span>
+  <span class="a">aria-label</span>=<span class="s">"Add item to cart"</span>
+  <span class="a">onClick</span>={handleAddToCart}
+  <span class="a">disabled</span>={loading}
+&gt;
+  {loading ? <span class="s">'Adding…'</span> : <span class="s">'Add to cart'</span>}
+&lt;/<span class="f">button</span>&gt;</code></pre>
+
+          <h3>A sensible toolset</h3>
+          <div class="groups">
+            <div><b>Build</b><ul><li>Vite or Webpack</li><li>PostCSS or Tailwind</li><li>ESLint and Prettier</li></ul></div>
+            <div><b>Test</b><ul><li>Jest or Vitest</li><li>Testing Library</li><li>Cypress or Playwright</li></ul></div>
+            <div><b>Monitor</b><ul><li>Lighthouse CI</li><li>Web Vitals</li><li>Error tracking</li></ul></div>
           </div>
         </div>
 
-        <div class="border-l-4 border-orange-500 pl-6">
-          <h3 class="text-xl font-semibold mb-4 flex items-center">
-            <span class="w-8 h-8 bg-orange-100 rounded-lg flex items-center justify-center mr-3 text-orange-600">⚡</span>
-            Performance is UX
-          </h3>
-          <p class="text-gray-700 mb-4">
-            Speed directly impacts user satisfaction and business metrics. A 100ms delay can reduce conversions by 7%. Focus on Core Web Vitals and perceived performance.
-          </p>
-          
-          <div class="bg-gray-50 p-4 rounded-xl mb-4">
-            <h4 class="font-medium mb-2">Performance Checklist:</h4>
-            <div class="grid md:grid-cols-2 gap-2 text-sm">
-              <div class="space-y-1">
-                <div class="flex items-center space-x-2">
-                  <span class="w-2 h-2 bg-green-500 rounded-full"></span>
-                  <span>Image optimization & lazy loading</span>
-                </div>
-                <div class="flex items-center space-x-2">
-                  <span class="w-2 h-2 bg-green-500 rounded-full"></span>
-                  <span>Minify CSS/JS bundles</span>
-                </div>
-                <div class="flex items-center space-x-2">
-                  <span class="w-2 h-2 bg-green-500 rounded-full"></span>
-                  <span>Use CDN for static assets</span>
-                </div>
-              </div>
-              <div class="space-y-1">
-                <div class="flex items-center space-x-2">
-                  <span class="w-2 h-2 bg-blue-500 rounded-full"></span>
-                  <span>Implement code splitting</span>
-                </div>
-                <div class="flex items-center space-x-2">
-                  <span class="w-2 h-2 bg-blue-500 rounded-full"></span>
-                  <span>Optimize First Contentful Paint</span>
-                </div>
-                <div class="flex items-center space-x-2">
-                  <span class="w-2 h-2 bg-blue-500 rounded-full"></span>
-                  <span>Reduce Time to Interactive</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="border-l-4 border-green-500 pl-6">
-          <h3 class="text-xl font-semibold mb-4 flex items-center">
-            <span class="w-8 h-8 bg-green-100 rounded-lg flex items-center justify-center mr-3 text-green-600">♿</span>
-            Accessibility is Non-Negotiable
-          </h3>
-          <p class="text-gray-700 mb-4">
-            15% of the world has some form of disability. Accessible design isn't just ethical—it's good business and often improves usability for everyone.
-          </p>
-          
-          <div class="code-block p-4 rounded-xl text-white text-sm overflow-x-auto mb-4">
-            <div class="text-gray-300 mb-2">// Accessible React Component</div>
-            <div class="text-blue-300">&lt;button</div><br>
-            <div class="ml-4 text-yellow-300">aria-label=</div><div class="text-green-300">"Add item to cart"</div><br>
-            <div class="ml-4 text-yellow-300">onClick=</div><div class="text-white">{handleAddToCart}</div><br>
-            <div class="ml-4 text-yellow-300">disabled=</div><div class="text-white">{loading}</div><br>
-            <div class="text-blue-300">&gt;</div><br>
-            <div class="ml-4 text-white">{loading ? </div><div class="text-green-300">'Adding...'</div><div class="text-white"> : </div><div class="text-green-300">'Add to Cart'</div><div class="text-white">}</div><br>
-            <div class="text-blue-300">&lt;/button&gt;</div>
-          </div>
-        </div>
-
-        <div class="bg-purple-50 p-6 rounded-2xl">
-          <h3 class="text-xl font-semibold mb-4 text-purple-800">Frontend Tools Stack</h3>
-          <div class="grid md:grid-cols-3 gap-4">
-            <div class="bg-white p-4 rounded-xl">
-              <h4 class="font-medium mb-2 text-blue-600"> Build Tools</h4>
-              <div class="space-y-1 text-sm text-gray-700">
-                <div>• Vite / Webpack</div>
-                <div>• PostCSS / Tailwind</div>
-                <div>• ESLint / Prettier</div>
-              </div>
-            </div>
-            <div class="bg-white p-4 rounded-xl">
-              <h4 class="font-medium mb-2 text-green-600">🧪 Testing</h4>
-              <div class="space-y-1 text-sm text-gray-700">
-                <div>• Jest / Vitest</div>
-                <div>• Testing Library</div>
-                <div>• Cypress / Playwright</div>
-              </div>
-            </div>
-            <div class="bg-white p-4 rounded-xl">
-              <h4 class="font-medium mb-2 text-purple-600">Monitoring</h4>
-              <div class="space-y-1 text-sm text-gray-700">
-                <div>• Lighthouse CI</div>
-                <div>• Web Vitals</div>
-                <div>• Error Tracking</div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="text-center">
-          <a href="#" class="inline-flex items-center bg-purple-600 text-white px-6 py-3 rounded-xl hover:bg-purple-700 transition-all duration-300 transform hover:scale-105">
-             Explore Frontend Masterclass
-            <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-            </svg>
-          </a>
-        </div>
+        <a class="related reveal" href="https://lessonsquill.com/" target="_blank" rel="noopener">
+          <div><small>Put into practice</small><strong>LessonsQuill: AI lesson notes for teachers</strong></div>
+          <svg viewBox="0 0 9 14" aria-hidden="true"><path d="M1.5 1.5 7 7l-5.5 5.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
       </div>
     </article>
 
-    <!-- Article 3: MVP Development -->
-    <article id="mvp" class="article-card bg-white rounded-3xl p-8 mb-12 shadow-lg animate-slide-up" style="animation-delay: 0.4s;">
-      <div class="article-hero bg-gradient-to-br from-green-50 to-green-100 -m-8 mb-8 p-8 rounded-t-3xl">
-        <div class="flex items-center justify-between mb-6">
-          <div class="flex items-center space-x-4">
-            <div class="w-16 h-16 bg-green-600 rounded-2xl flex items-center justify-center text-white text-2xl">
-              
-            </div>
-            <div>
-              <h2 class="text-3xl font-bold text-gray-800">From Idea to MVP in 30 Days</h2>
-              <div class="flex items-center space-x-4 mt-2 text-sm text-gray-600">
-                <span> August 11, 2025</span>
-                <span> 6 min read</span>
-                <span> Product</span>
-              </div>
-            </div>
-          </div>
-        </div>
-        
-        <p class="text-lg text-gray-700 leading-relaxed">
-          Speed beats perfection in the startup world. Here's a battle-tested playbook for shipping an MVP that validates your core assumptions fast.
-        </p>
-      </div>
+    <!-- ================= Article 3: MVP ================= -->
+    <article class="post" id="mvp" data-tone="mvp">
+      <div class="measure">
+        <header class="reveal">
+          <div class="index-row label"><span>03</span><span>Product</span><span><time datetime="2025-08-11">11 Aug 2025</time> · 6 min</span></div>
+          <h2 class="post-title">From idea to MVP in 30 days</h2>
+          <p class="lead dek">Speed beats perfection early on. Here's a tested playbook for shipping an MVP that checks your core assumptions fast.</p>
+        </header>
 
-      <div class="space-y-8">
-        <div class="border-l-4 border-green-500 pl-6">
-          <h3 class="text-xl font-semibold mb-4 flex items-center">
-            <span class="w-8 h-8 bg-green-100 rounded-lg flex items-center justify-center mr-3 text-green-600">🎯</span>
-            Week 1: Problem Definition & Validation
-          </h3>
-          <p class="text-gray-700 mb-4">
-            Start with the problem, not the solution. If you can't articulate the problem in one sentence, you're not ready to build.
-          </p>
-          
-          <div class="bg-green-50 p-4 rounded-xl mb-4">
-            <h4 class="font-medium text-green-800 mb-2"> Problem Statement Template</h4>
-            <div class="text-sm text-green-700 bg-white p-3 rounded border-l-4 border-green-300">
-              <strong>[Target User]</strong> struggles with <strong>[Specific Problem]</strong> when <strong>[Context/Situation]</strong>, causing <strong>[Impact/Pain Point]</strong>.
-            </div>
+        <div class="prose">
+          <h3>Week 1: define and validate the problem</h3>
+          <p>Start with the problem, not the solution. If you can't state the problem in one sentence, you're not ready to build.</p>
+          <p class="template"><mark>Target user</mark> struggles with <mark>specific problem</mark> when <mark>situation</mark>, which causes <mark>impact</mark>.</p>
+          <div class="groups two">
+            <div><b>Days 1 to 3: research</b><ul><li>Interview 10 potential users</li><li>Study competing solutions</li><li>Map the pain points in their day</li><li>Define how you'll measure success</li></ul></div>
+            <div><b>Days 4 to 7: focus</b><ul><li>Write the one-sentence problem</li><li>Find your riskiest assumption</li><li>Design a test for it</li><li>Sketch wireframes</li></ul></div>
           </div>
 
-          <div class="grid md:grid-cols-2 gap-4">
-            <div class="space-y-3">
-              <h4 class="font-medium"> Day 1-3: Research</h4>
-              <ul class="text-sm space-y-1 text-gray-700">
-                <li>• Interview 10 potential users</li>
-                <li>• Analyze competitor solutions</li>
-                <li>• Map user journey pain points</li>
-                <li>• Define success metrics</li>
-              </ul>
-            </div>
-            <div class="space-y-3">
-              <h4 class="font-medium"> Day 4-7: Focus</h4>
-              <ul class="text-sm space-y-1 text-gray-700">
-                <li>• Write one-sentence problem</li>
-                <li>• Identify riskiest assumption</li>
-                <li>• Design validation experiment</li>
-                <li>• Create wireframes/mockups</li>
-              </ul>
-            </div>
+          <h3>Weeks 2 and 3: build the minimum</h3>
+          <p>Cut features without mercy. Your MVP should test the riskiest assumption with the least work.</p>
+          <div class="groups">
+            <div><b>Frontend</b><ul><li>Next.js and Tailwind</li><li>Deploy on Vercel</li><li>Framer Motion</li></ul></div>
+            <div><b>Backend</b><ul><li>Supabase or Firebase</li><li>Stripe for payments</li><li>Resend for email</li></ul></div>
+            <div><b>Analytics</b><ul><li>PostHog events</li><li>Google Analytics</li><li>Hotjar heatmaps</li></ul></div>
+          </div>
+          <div class="callout">
+            <b>Common mistakes</b>
+            <ul class="dots">
+              <li>Building too many features</li>
+              <li>Polishing the design before anyone has validated the idea</li>
+              <li>Setting up complex infrastructure</li>
+              <li>Ignoring early user feedback</li>
+            </ul>
+          </div>
+
+          <h3>Week 4: launch and learn</h3>
+          <p>Launch to a small, relevant audience. The goal isn't viral growth. It's learning what's true.</p>
+          <ul class="rows" aria-label="Metrics to track">
+            <li><span>Activation rate</span><span>Aim for 30%</span></li>
+            <li><span>Feature usage</span><span>The core feature</span></li>
+            <li><span>Time to value</span><span>Under 5 minutes</span></li>
+          </ul>
+          <p>Hear from users three ways: an in-app feedback widget, short interview calls, and behaviour analytics.</p>
+
+          <div class="checklist" data-checklist="mvp">
+            <header><b>30-day checklist</b><span data-count></span></header>
+            <ul>
+              <li><label><input type="checkbox" /><span>Problem statement validated</span></label></li>
+              <li><label><input type="checkbox" /><span>Core feature defined</span></label></li>
+              <li><label><input type="checkbox" /><span>Tech stack chosen</span></label></li>
+              <li><label><input type="checkbox" /><span>MVP built and deployed</span></label></li>
+              <li><label><input type="checkbox" /><span>Analytics in place</span></label></li>
+              <li><label><input type="checkbox" /><span>Launched to test users</span></label></li>
+              <li><label><input type="checkbox" /><span>Feedback collected</span></label></li>
+              <li><label><input type="checkbox" /><span>Next iteration planned</span></label></li>
+            </ul>
           </div>
         </div>
 
-        <div class="border-l-4 border-blue-500 pl-6">
-          <h3 class="text-xl font-semibold mb-4 flex items-center">
-            <span class="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center mr-3 text-blue-600">⚙️</span>
-            Week 2-3: Build the Minimum
-          </h3>
-          <p class="text-gray-700 mb-4">
-            Ruthlessly cut features. Your MVP should test your riskiest assumption with the least amount of work.
-          </p>
-          
-          <div class="bg-gradient-to-r from-blue-50 to-purple-50 p-6 rounded-xl mb-4">
-            <h4 class="font-medium mb-4"> MVP Tech Stack Recommendations</h4>
-            <div class="grid md:grid-cols-3 gap-4">
-              <div class="bg-white p-3 rounded-lg">
-                <h5 class="font-medium text-blue-600 mb-2">Frontend</h5>
-                <div class="text-sm space-y-1">
-                  <div>• Next.js + Tailwind</div>
-                  <div>• Vercel deployment</div>
-                  <div>• Framer Motion</div>
-                </div>
-              </div>
-              <div class="bg-white p-3 rounded-lg">
-                <h5 class="font-medium text-green-600 mb-2">Backend</h5>
-                <div class="text-sm space-y-1">
-                  <div>• Supabase/Firebase</div>
-                  <div>• Stripe for payments</div>
-                  <div>• Resend for emails</div>
-                </div>
-              </div>
-              <div class="bg-white p-3 rounded-lg">
-                <h5 class="font-medium text-purple-600 mb-2">Analytics</h5>
-                <div class="text-sm space-y-1">
-                  <div>• Posthog events</div>
-                  <div>• Google Analytics</div>
-                  <div>• Hotjar heatmaps</div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="bg-yellow-50 border border-yellow-200 p-4 rounded-xl">
-            <h4 class="font-medium text-yellow-800 mb-2">Common MVP Mistakes to Avoid</h4>
-            <div class="grid md:grid-cols-2 gap-2 text-sm text-yellow-700">
-              <div>• Building too many features</div>
-              <div>• Perfect UI/UX before validation</div>
-              <div>• Complex infrastructure setup</div>
-              <div>• Ignoring user feedback early</div>
-            </div>
-          </div>
-        </div>
-
-        <div class="border-l-4 border-purple-500 pl-6">
-          <h3 class="text-xl font-semibold mb-4 flex items-center">
-            <span class="w-8 h-8 bg-purple-100 rounded-lg flex items-center justify-center mr-3 text-purple-600">📊</span>
-            Week 4: Launch & Learn
-          </h3>
-          <p class="text-gray-700 mb-4">
-            Launch to a small, relevant audience. The goal isn't viral growth—it's validated learning.
-          </p>
-          
-          <div class="grid md:grid-cols-2 gap-6">
-            <div class="bg-gray-50 p-4 rounded-xl">
-              <h4 class="font-medium mb-3"> Key Metrics to Track</h4>
-              <div class="space-y-2 text-sm">
-                <div class="flex justify-between items-center p-2 bg-white rounded">
-                  <span>User Activation Rate</span>
-                  <span class="text-green-600 font-medium">Target: 30%</span>
-                </div>
-                <div class="flex justify-between items-center p-2 bg-white rounded">
-                  <span>Feature Usage</span>
-                  <span class="text-blue-600 font-medium">Core feature</span>
-                </div>
-                <div class="flex justify-between items-center p-2 bg-white rounded">
-                  <span>Time to Value</span>
-                  <span class="text-purple-600 font-medium">&lt; 5 minutes</span>
-                </div>
-              </div>
-            </div>
-            
-            <div class="bg-gray-50 p-4 rounded-xl">
-              <h4 class="font-medium mb-3">Feedback Channels</h4>
-              <div class="space-y-2 text-sm">
-                <div class="flex items-center space-x-2 p-2 bg-white rounded">
-                  <span></span>
-                  <span>In-app feedback widget</span>
-                </div>
-                <div class="flex items-center space-x-2 p-2 bg-white rounded">
-                  <span></span>
-                  <span>User interview calls</span>
-                </div>
-                <div class="flex items-center space-x-2 p-2 bg-white rounded">
-                  <span></span>
-                  <span>Behavior analytics</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="bg-gradient-to-r from-green-50 via-blue-50 to-purple-50 p-6 rounded-2xl">
-          <h3 class="text-xl font-semibold mb-4 text-gray-800">📋 30-Day MVP Checklist</h3>
-          <div class="grid md:grid-cols-2 gap-6">
-            <div class="space-y-3">
-              <div class="flex items-center space-x-3">
-                <input type="checkbox" class="w-5 h-5 text-green-600 rounded">
-                <span class="text-sm">Problem statement validated</span>
-              </div>
-              <div class="flex items-center space-x-3">
-                <input type="checkbox" class="w-5 h-5 text-green-600 rounded">
-                <span class="text-sm">Core feature defined</span>
-              </div>
-              <div class="flex items-center space-x-3">
-                <input type="checkbox" class="w-5 h-5 text-green-600 rounded">
-                <span class="text-sm">Tech stack chosen</span>
-              </div>
-              <div class="flex items-center space-x-3">
-                <input type="checkbox" class="w-5 h-5 text-green-600 rounded">
-                <span class="text-sm">MVP built & deployed</span>
-              </div>
-            </div>
-            <div class="space-y-3">
-              <div class="flex items-center space-x-3">
-                <input type="checkbox" class="w-5 h-5 text-green-600 rounded">
-                <span class="text-sm">Analytics implemented</span>
-              </div>
-              <div class="flex items-center space-x-3">
-                <input type="checkbox" class="w-5 h-5 text-green-600 rounded">
-                <span class="text-sm">Launch to test users</span>
-              </div>
-              <div class="flex items-center space-x-3">
-                <input type="checkbox" class="w-5 h-5 text-green-600 rounded">
-                <span class="text-sm">Feedback collected</span>
-              </div>
-              <div class="flex items-center space-x-3">
-                <input type="checkbox" class="w-5 h-5 text-green-600 rounded">
-                <span class="text-sm">Next iteration planned</span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="text-center">
-          <a href="#" class="inline-flex items-center bg-green-600 text-white px-6 py-3 rounded-xl hover:bg-green-700 transition-all duration-300 transform hover:scale-105">
-             Download Complete MVP Playbook
-            <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
-            </svg>
-          </a>
-        </div>
+        <a class="related reveal" href="index.html#about">
+          <div><small>Where this came from</small><strong>Launching a bootstrapped MVP to 100+ users in its first month</strong></div>
+          <svg viewBox="0 0 9 14" aria-hidden="true"><path d="M1.5 1.5 7 7l-5.5 5.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
       </div>
     </article>
 
-    <!-- Newsletter Signup -->
-    <section class="bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 rounded-3xl p-8 text-white text-center animate-slide-up">
-      <div class="max-w-2xl mx-auto">
-        <h3 class="text-2xl font-bold mb-4">Stay Updated with Latest Insights</h3>
-        <p class="mb-6 text-blue-100">Get practical engineering tips, project breakdowns, and startup lessons delivered to your inbox.</p>
-        
-        <form class="flex flex-col md:flex-row gap-4 max-w-md mx-auto">
-          <input 
-            type="email" 
-            placeholder="your@email.com" 
-            class="flex-1 px-4 py-3 rounded-xl text-gray-800 focus:outline-none focus:ring-4 focus:ring-white/30"
-            required
-          >
-          <button 
-            type="submit" 
-            class="bg-white text-purple-600 px-6 py-3 rounded-xl font-semibold hover:bg-gray-100 transition-all duration-300 transform hover:scale-105"
-          >
-            Subscribe 
-          </button>
-        </form>
-        
-        <p class="text-xs text-blue-200 mt-4">No spam. Unsubscribe anytime. 1000+ engineers already subscribed.</p>
+    <!-- ================= CTA ================= -->
+    <section class="invert cta">
+      <div class="container reveal">
+        <h2 class="h2">Building something like this?</h2>
+        <p class="lead">From a battery-powered sensor to a product launch, I'd like to hear about it.</p>
+        <a class="btn btn-primary" href="index.html#contact">Get in touch</a>
       </div>
     </section>
   </main>
 
-  <!-- Enhanced Footer -->
-  <footer class="bg-blue-900 text-white py-16">
-    <div class="max-w-6xl mx-auto px-4">
-      <div class="grid md:grid-cols-4 gap-8 mb-12">
-        <div class="md:col-span-2">
-          <div class="flex items-center space-x-3 mb-4">
-            <div class="w-12 h-12 bg-gradient-to-br from-blue-600 to-purple-600 rounded-xl flex items-center justify-center text-white font-bold text-xl">
-              PP
-            </div>
-            <div>
-              <div class="font-bold text-xl">Pelumi Peter</div>
-              <div class="text-sm text-gray-400">Hardware & Software Engineer</div>
-            </div>
-          </div>
-          <p class="text-gray-400 mb-6 max-w-md">
-            Building the future through innovative hardware design, modern web technologies, and rapid product development.
-          </p>
-          <div class="flex space-x-4">
-            <a href="#" class="w-10 h-10 bg-white rounded-full flex items-center justify-center hover:bg-blue-700 transition-all duration-300 transform hover:scale-110">
-               <div class="absolute inset-0 flex items-center justify-center text-white text-6xl bg-center bg-cover"
-                 style="background-image: url('image/github-142-svgrepo-com.svg');">
-              
-            </div>
-            </a>
-            <a href="#" class="w-10 h-10 bg-white rounded-full flex items-center justify-center hover:bg-gray-700 transition-all duration-300 transform hover:scale-110">
-               <div class="absolute inset-0 flex items-center justify-center text-white text-6xl bg-center bg-cover"
-                 style="background-image: url('image/twitter-logo-thin-svgrepo-com.svg');">
-              
-            </div>
-            </a>
-            <a href="#" class="w-10 h-10 bg-white rounded-full flex items-center justify-center hover:bg-blue-600 transition-all duration-300 transform hover:scale-110">
-              <div class="absolute inset-0 flex items-center justify-center text-white text-6xl bg-center bg-cover"
-                 style="background-image: url('image/linkedin-logo-thin-svgrepo-com.svg');">
-              
-            </div>
-            </a>
-          </div>
-        </div>
-        
-        <div>
-          <h4 class="font-semibold mb-4">Quick Links</h4>
-          <ul class="space-y-2 text-sm text-gray-400">
-            <li><a href="#iot" class="hover:text-white transition-colors">IoT Power Guide</a></li>
-            <li><a href="#frontend" class="hover:text-white transition-colors">Frontend Principles</a></li>
-            <li><a href="#mvp" class="hover:text-white transition-colors">MVP Development</a></li>
-            <li><a href="index.html" class="hover:text-white transition-colors">Portfolio</a></li>
-          </ul>
-        </div>
-        
-        <div>
-          <h4 class="font-semibold mb-4">Resources</h4>
-          <ul class="space-y-2 text-sm text-gray-400">
-            <li><a href="#" class="hover:text-white transition-colors">Code Templates</a></li>
-            <li><a href="#" class="hover:text-white transition-colors">Design System</a></li>
-            <li><a href="#" class="hover:text-white transition-colors">Hardware Guides</a></li>
-            <li><a href="#" class="hover:text-white transition-colors">Startup Tools</a></li>
-          </ul>
-        </div>
-      </div>
-      
-      <div class="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center">
-        <p class="text-sm text-gray-400 mb-4 md:mb-0">
-          © 2025 Pelumi Peter. All rights reserved.
-        </p>
-        <div class="flex items-center space-x-6 text-sm text-gray-400">
-          <span class="flex items-center">
-            <span class="w-2 h-2 bg-green-500 rounded-full mr-2 animate-pulse"></span>
-            Available for projects
-          </span>
-          <a href="mailto:support@lessonsquill.com" class="hover:text-white transition-colors">
-            hello@pelumipeter.dev
-          </a>
-        </div>
-      </div>
+  <footer>
+    <div class="container footer-inner">
+      <span class="label">© 2026 Pelumi Peter</span>
+      <span class="label">7.38°N 3.95°E</span>
+      <span class="label"><a href="index.html">Portfolio</a> · <a href="https://github.com/ppeterz/" target="_blank" rel="noopener">GitHub</a> · <a href="mailto:hey@lessonsquill.com">Email</a></span>
     </div>
   </footer>
 
+  <script src="js/site.js" defer></script>
   <script>
-    // Enhanced JavaScript functionality
-    
-    // Reading progress bar
-    function updateReadingProgress() {
-      const article = document.querySelector('main');
-      const scrolled = window.scrollY;
-      const articleTop = article.offsetTop;
-      const articleHeight = article.offsetHeight;
-      const windowHeight = window.innerHeight;
-      
-      const progress = Math.min(100, Math.max(0, 
-        ((scrolled - articleTop + windowHeight) / articleHeight) * 100
-      ));
-      
-      document.querySelector('.reading-progress').style.width = progress + '%';
-    }
+    /* ---------- Reading progress: one transform per frame, no layout ---------- */
+    (() => {
+      const bar = document.querySelector('.progress');
+      let queued = false;
+      const update = () => {
+        queued = false;
+        const max = document.documentElement.scrollHeight - innerHeight;
+        bar.style.transform = `scaleX(${max > 0 ? Math.min(scrollY / max, 1) : 0})`;
+      };
+      addEventListener('scroll', () => { if (!queued) { queued = true; requestAnimationFrame(update); } }, { passive: true });
+      addEventListener('resize', update);
+      update();
+    })();
 
-    // Section indicators
-    function updateSectionIndicators() {
-      const sections = document.querySelectorAll('article[id]');
-      const indicators = document.querySelectorAll('.section-indicator');
-      
-      sections.forEach((section, index) => {
-        const rect = section.getBoundingClientRect();
-        const indicator = indicators[index];
-        
-        if (rect.top <= 200 && rect.bottom >= 200) {
-          indicator.classList.add('active');
-        } else {
-          indicator.classList.remove('active');
-        }
-      });
-    }
-
-    // Smooth scrolling for navigation links
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
-        if (target) {
-          target.scrollIntoView({
-            behavior: 'smooth',
-            block: 'start'
-          });
-        }
-      });
+    /* ---------- Checklists: count ticks, remember them on this device ---------- */
+    document.querySelectorAll('[data-checklist]').forEach((list) => {
+      const key = 'lab-checklist-' + list.dataset.checklist;
+      const boxes = [...list.querySelectorAll('input[type="checkbox"]')];
+      const count = list.querySelector('[data-count]');
+      let saved = [];
+      try { saved = JSON.parse(localStorage.getItem(key) || '[]'); } catch { saved = []; }
+      boxes.forEach((b, i) => { b.checked = Boolean(saved[i]); });
+      const sync = () => {
+        const done = boxes.filter((b) => b.checked).length;
+        count.textContent = done === boxes.length ? 'All done' : `${done} of ${boxes.length}`;
+        try { localStorage.setItem(key, JSON.stringify(boxes.map((b) => b.checked))); } catch { /* storage unavailable */ }
+      };
+      list.addEventListener('change', sync);
+      sync();
     });
-
-    // Intersection Observer for animations
-    const observerOptions = {
-      threshold: 0.1,
-      rootMargin: '0px 0px -100px 0px'
-    };
-
-    const observer = new Intersection
+  </script>
+</body>
+</html>

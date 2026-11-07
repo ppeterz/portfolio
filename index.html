@@ -2,694 +2,1117 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Pelumi Peter - Hardware & Software Engineer</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          fontFamily: {
-            'inter': ['Inter', 'system-ui', 'sans-serif'],
-          },
-          animation: {
-            'fade-in': 'fadeIn 0.6s ease-out',
-            'slide-up': 'slideUp 0.8s ease-out',
-            'bounce-gentle': 'bounceGentle 2s infinite',
-            'glow': 'glow 2s ease-in-out infinite alternate',
-            'float': 'float 6s ease-in-out infinite',
-          },
-        }
-      }
-    }
-  </script>
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Pelumi Peter · Embedded Systems Engineer</title>
+  <meta name="description" content="Pelumi Peter builds embedded systems end to end: ESP32 energy meters, 3D printer firmware and RFID attendance devices, plus the software and products around them." />
+  <meta name="theme-color" content="#f3f2ee" media="(prefers-color-scheme: light)" />
+  <meta name="theme-color" content="#0d0d0c" media="(prefers-color-scheme: dark)" />
+  <meta property="og:title" content="Pelumi Peter · Embedded Systems Engineer" />
+  <meta property="og:description" content="From sensor to screen: embedded systems, firmware and the products around them." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://pelumi-peter.netlify.app/" />
+  <link rel="canonical" href="https://pelumi-peter.netlify.app/" />
+  <meta property="og:image" content="https://pelumi-peter.netlify.app/image/og-card.jpg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+  <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" />
+  <link rel="stylesheet" href="css/site.css" />
+  <script>document.documentElement.classList.add('js');</script>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
-    
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
+    /* ---------- Hero bento ---------- */
+    .hero { padding-top: calc(var(--nav-h) + clamp(20px, 3vw, 36px)); padding-bottom: clamp(64px, 8vw, 110px); }
+    .bento { display: grid; grid-template-columns: repeat(12, 1fr); gap: 12px; }
+    .tile {
+      position: relative; background: var(--tile); border-radius: var(--radius-lg);
+      box-shadow: 0 0 0 1px var(--line); padding: 22px 24px;
     }
-    
-    @keyframes slideUp {
-      from { 
-        opacity: 0; 
-        transform: translateY(30px); 
-      }
-      to { 
-        opacity: 1; 
-        transform: translateY(0); 
-      }
+    .tile .label { display: block; }
+    .tile-intro {
+      grid-column: span 8; grid-row: span 2;
+      display: flex; flex-direction: column; justify-content: space-between; gap: 48px;
+      padding: clamp(24px, 4vw, 48px);
+      background-image: radial-gradient(var(--dot) 1px, transparent 1.3px);
+      background-size: 18px 18px; background-position: -9px -9px;
     }
-    
-    @keyframes bounceGentle {
-      0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
-      40% { transform: translateY(-10px); }
-      60% { transform: translateY(-5px); }
+    .tile-intro .display { margin-top: 18px; }
+    .tile-intro .lead { margin-top: 24px; max-width: 40ch; }
+    .actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 32px; }
+    .tile-portrait { grid-column: span 4; grid-row: span 2; padding: 0; overflow: hidden; min-height: 440px; background: var(--bg-alt); }
+    .tile-portrait img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 15%; filter: grayscale(1) contrast(1.06); }
+    .tile-portrait figcaption {
+      position: absolute; left: 0; right: 0; bottom: 0; padding: 40px 20px 16px;
+      display: flex; justify-content: space-between; gap: 12px;
+      background: linear-gradient(transparent, rgba(0, 0, 0, 0.55));
     }
-    
-    @keyframes glow {
-      from { box-shadow: 0 0 20px rgba(59, 130, 246, 0.5); }
-      to { box-shadow: 0 0 30px rgba(59, 130, 246, 0.8), 0 0 40px rgba(59, 130, 246, 0.3); }
+    .tile-portrait figcaption .label { color: rgba(255, 255, 255, 0.85); }
+    .tile-small { grid-column: span 4; display: flex; flex-direction: column; justify-content: space-between; gap: 18px; min-height: 150px; }
+    .readout { font: 500 clamp(2rem, 3.4vw, 2.75rem)/1 var(--mono); letter-spacing: -0.04em; font-variant-numeric: tabular-nums; }
+    .tile-small p { font-size: 0.9375rem; color: var(--ink-2); line-height: 1.45; }
+    .tile-small strong { display: block; font-size: 1.25rem; font-weight: 600; letter-spacing: -0.025em; color: var(--ink); margin-bottom: 4px; }
+    .tile-small strong.live { display: flex; align-items: center; gap: 10px; }
+    .live::before { content: ""; flex: none; width: 8px; height: 8px; border-radius: 50%; background: var(--ok); box-shadow: 0 0 0 4px color-mix(in srgb, var(--ok) 20%, transparent); }
+    a.tile-small { transition: box-shadow 0.3s ease, transform 0.45s var(--ease-out); -webkit-tap-highlight-color: transparent; }
+    @media (hover: hover) { a.tile-small:hover { box-shadow: 0 0 0 1px var(--line-strong); } }
+    a.tile-small:active { transform: scale(0.985); transition-duration: 0.1s; }
+    .tile-row { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
+    .tile-row svg { width: 9px; height: 14px; color: var(--accent); flex: none; }
+
+    .stack-strip {
+      display: flex; flex-wrap: wrap; margin-top: 12px;
+      border-radius: var(--radius-md); box-shadow: 0 0 0 1px var(--line); overflow: hidden;
     }
-    
-    @keyframes float {
-      0%, 100% { transform: translateY(0px); }
-      50% { transform: translateY(-20px); }
+    .stack-strip li { flex: 1 1 auto; padding: 14px 18px; text-align: center; border-right: 1px solid var(--line); margin-right: -1px; }
+    .stack-strip li:first-child { color: var(--accent-ink); }
+
+    @media (max-width: 960px) {
+      .bento { grid-template-columns: repeat(6, 1fr); }
+      .tile-intro { grid-column: span 6; grid-row: auto; }
+      .tile-portrait { grid-column: span 3; grid-row: span 2; min-height: 0; }
+      .tile-small { grid-column: span 3; }
+      .tile-small.wide { grid-column: span 6; }
     }
-    
-    .gradient-bg {
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    @media (max-width: 620px) {
+      .tile-portrait { grid-column: span 6; aspect-ratio: 4 / 5; }
+      .tile-small, .tile-small.wide { grid-column: span 6; min-height: 0; }
+      .stack-strip li { flex-basis: 33%; border-bottom: 1px solid var(--line); }
     }
-    
-    .glass-effect {
-      background: rgba(255, 255, 255, 0.1);
-      backdrop-filter: blur(10px);
-      border: 1px solid rgba(255, 255, 255, 0.2);
+
+    /* ---------- Device panels (datasheet layout) ---------- */
+    .devices { display: grid; gap: 20px; }
+    .device { background: var(--tile); border-radius: var(--radius-lg); box-shadow: 0 0 0 1px var(--line); overflow: hidden; }
+    .device-bar {
+      display: grid; grid-template-columns: 1fr auto 1fr; gap: 16px;
+      padding: 14px 22px; border-bottom: 1px solid var(--line);
     }
-    
-    .card-hover {
-      transition: all 0.3s ease;
+    .device-bar span:nth-child(2) { color: var(--ink); }
+    .device-bar span:last-child { text-align: right; }
+    .device-grid { display: grid; grid-template-columns: 1.05fr 1fr; }
+    .device:nth-child(even) .device-media { order: 2; border-right: 0; border-left: 1px solid var(--line); }
+    .device-media {
+      display: grid; place-items: center; padding: clamp(24px, 4vw, 48px);
+      background-color: var(--bg-alt); border-right: 1px solid var(--line);
+      background-image: radial-gradient(var(--dot) 1px, transparent 1.3px); background-size: 18px 18px;
     }
-    
-    .card-hover:hover {
-      transform: translateY(-8px);
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    .device-body { padding: clamp(24px, 4vw, 48px); }
+    .device-tag { margin-top: 12px; font-size: 1.1875rem; line-height: 1.4; color: var(--ink-2); letter-spacing: -0.015em; }
+    .spec { margin-top: 28px; border-bottom: 1px solid var(--line); }
+    .spec div { display: grid; grid-template-columns: 12ch 1fr; gap: 16px; padding: 11px 0; border-top: 1px solid var(--line); }
+    .spec dt { font: 500 0.75rem/1.5 var(--mono); letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-3); padding-top: 2px; }
+    .spec dd { font-size: 0.9375rem; line-height: 1.5; }
+    .notes { margin-top: 24px; display: grid; gap: 14px; counter-reset: note; }
+    .notes li { position: relative; padding-left: 40px; font-size: 1rem; line-height: 1.5; counter-increment: note; }
+    .notes li::before {
+      content: counter(note, decimal-leading-zero);
+      position: absolute; left: 0; top: 2px;
+      font: 500 0.75rem/1.5 var(--mono); color: var(--accent-ink);
     }
-    
-    .typing-animation {
-      border-right: 2px solid #3b82f6;
-      white-space: nowrap;
-      overflow: hidden;
-      animation: typing 3s steps(40) infinite, blink 1s infinite;
+    .device .btn-link { margin-top: 18px; }
+    @media (max-width: 920px) {
+      .device-grid { grid-template-columns: 1fr; }
+      .device .device-media, .device:nth-child(even) .device-media { order: 0; border: 0; border-bottom: 1px solid var(--line); }
     }
-    
-    @keyframes typing {
-      0% { width: 0; }
-      50% { width: 100%; }
-      100% { width: 0; }
+    @media (max-width: 560px) {
+      .device-bar { grid-template-columns: 1fr 1fr; }
+      .device-bar span:first-child { display: none; }
+      .spec div { grid-template-columns: 1fr; gap: 2px; }
     }
-    
-    @keyframes blink {
-      50% { border-color: transparent; }
+
+    /* ---------- Energy meter device ---------- */
+    .meter { width: 100%; max-width: 420px; }
+    .meter-body {
+      background: linear-gradient(180deg, #2a2a28 0%, #1b1b1a 100%);
+      border-radius: 18px; padding: 18px;
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1), 0 24px 44px rgba(0, 0, 0, 0.22);
     }
-    
-    .parallax {
-      transform: translateZ(0);
-      transition: transform 0.3s ease-out;
+    .lcd {
+      container-type: inline-size;
+      display: grid; grid-template-columns: repeat(16, 1fr); gap: 2px;
+      padding: 10px;
+      border-radius: 5px;
+      background: linear-gradient(180deg, #b3cc4f 0%, #98b53c 100%);
+      box-shadow: inset 0 0 0 2px #5e7420, inset 0 6px 14px rgba(0, 0, 0, 0.22);
     }
-    
-    .tech-badge {
-      transition: all 0.3s ease;
-      cursor: pointer;
+    .lcd span {
+      aspect-ratio: 5 / 8;
+      display: grid; place-items: center;
+      background: rgba(30, 45, 5, 0.08);
+      color: #18220a;
+      font: 600 4.6cqi/1 var(--mono);
     }
-    
-    .tech-badge:hover {
-      transform: scale(1.05);
-      background: linear-gradient(45deg, #3b82f6, #8b5cf6);
-      color: white;
+    .sockets { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 14px; }
+    .socket {
+      position: relative; aspect-ratio: 1; border-radius: 10px;
+      background: #efeee9; display: grid; place-items: center;
+      box-shadow: inset 0 -2px 0 rgba(0, 0, 0, 0.12);
+      transition: box-shadow 0.3s ease;
+    }
+    .socket.shown { box-shadow: inset 0 -2px 0 rgba(0, 0, 0, 0.12), 0 0 0 2px var(--accent); }
+    .socket svg { width: 46%; height: 46%; color: #3a3a38; }
+    .socket .led {
+      position: absolute; top: 8px; right: 8px; width: 7px; height: 7px; border-radius: 50%;
+      background: #9a9993; transition: background-color 0.15s ease, box-shadow 0.15s ease;
+    }
+    .socket.on .led { background: #3ddc84; box-shadow: 0 0 8px #3ddc84; }
+    .socket .lbl { position: absolute; bottom: 6px; left: 0; right: 0; text-align: center; font: 500 0.625rem/1 var(--mono); letter-spacing: 0.06em; color: #77756e; }
+    .meter-controls { display: flex; align-items: center; justify-content: space-between; margin-top: 16px; }
+    .meter-dots { display: flex; gap: 6px; }
+    .meter-dots i { width: 6px; height: 6px; border-radius: 50%; background: rgba(255, 255, 255, 0.22); transition: background-color 0.2s ease, transform 0.35s var(--ease-out); }
+    .meter-dots i.active { background: var(--accent); transform: scale(1.2); }
+    .meter-btn {
+      position: relative; width: 56px; height: 56px; border-radius: 50%;
+      border: 0; padding: 0; cursor: pointer;
+      background: radial-gradient(circle at 50% 35%, #4a4a47 0%, #282826 70%);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.16), 0 3px 8px rgba(0, 0, 0, 0.4);
+      touch-action: manipulation; -webkit-user-select: none; user-select: none; -webkit-touch-callout: none;
+      -webkit-tap-highlight-color: transparent;
+      transition: transform 0.35s var(--ease-out);
+    }
+    .meter-btn.pressed { transform: scale(0.92); transition-duration: 0.08s; }
+    .meter-btn svg { position: absolute; inset: -6px; width: calc(100% + 12px); height: calc(100% + 12px); transform: rotate(-90deg); pointer-events: none; }
+    .meter-btn .track { stroke: rgba(255, 255, 255, 0.1); }
+    .meter-btn .progress { stroke: var(--accent); transition: stroke-dashoffset 0.4s var(--ease-out), stroke 0.2s ease; }
+    .meter-btn.pressed .progress { transition: stroke 0.2s ease; }
+    .meter-btn[data-stage="relay"] .progress { stroke: #3ddc84; }
+    .meter-btn[data-stage="ota"] .progress { stroke: #6cb6ff; }
+    .meter-hint { min-height: 1.4em; margin-top: 12px; font: 500 0.6875rem/1.4 var(--mono); letter-spacing: 0.05em; text-transform: uppercase; color: rgba(255, 255, 255, 0.55); text-align: center; }
+    .meter-caption { margin-top: 14px; text-align: center; }
+
+    /* ---------- NORTHBOLT system diagram ---------- */
+    .stack { width: 100%; max-width: 420px; display: grid; }
+    .node { background: var(--tile); border-radius: 12px; padding: 13px 16px; box-shadow: 0 0 0 1px var(--line); }
+    .node b { display: block; font: 500 0.6875rem/1.4 var(--mono); letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-3); }
+    .node span { display: block; margin-top: 3px; font-size: 0.9375rem; font-weight: 600; letter-spacing: -0.02em; }
+    .node.accent { background: var(--ink); box-shadow: none; }
+    .node.accent b { color: var(--accent); }
+    .node.accent span { color: var(--bg); }
+    .wire { position: relative; height: 40px; display: flex; align-items: center; }
+    .wire::before { content: ""; position: absolute; left: 50%; top: 0; bottom: 0; border-left: 1.5px dashed var(--ink-3); }
+    .wire em { position: relative; margin-left: calc(50% + 12px); font: 500 0.6875rem/1 var(--mono); font-style: normal; letter-spacing: 0.06em; text-transform: uppercase; color: var(--accent-ink); }
+    .branch { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+
+    /* ---------- RFID circuit ---------- */
+    .circuit { width: 100%; }
+    .circuit img { border-radius: 10px; width: 100%; box-shadow: 0 0 0 1px var(--line); }
+    .circuit figcaption { margin-top: 12px; text-align: center; }
+
+    /* ---------- From the bench: film strip of real build photos and clips ---------- */
+    .bench { border-top: 1px solid var(--line); padding: 18px 0 24px; }
+    .bench-head { display: flex; justify-content: space-between; align-items: center; padding: 0 22px 14px; }
+    .bench-nav { display: flex; gap: 6px; }
+    .bench-nav button {
+      width: 36px; height: 36px; border-radius: 8px; border: 0; cursor: pointer;
+      background: var(--chip); color: var(--ink); display: grid; place-items: center;
+      transition: background-color 0.2s ease, transform 0.3s var(--ease-out), opacity 0.2s ease;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .bench-nav button svg { width: 8px; height: 13px; }
+    .bench-nav button:active { transform: scale(0.92); transition-duration: 0.08s; }
+    .bench-nav button:disabled { opacity: 0.35; cursor: default; }
+    @media (hover: hover) { .bench-nav button:not(:disabled):hover { background: var(--line); } }
+    .bench-strip {
+      --h: clamp(260px, 34vw, 360px);
+      display: flex; gap: 12px; overflow-x: auto; overscroll-behavior-x: contain;
+      scroll-snap-type: x proximity; scroll-padding-inline: 22px; padding: 0 22px 6px;
+      scrollbar-width: thin; scrollbar-color: var(--line) transparent;
+    }
+    .bench-strip li { flex: none; scroll-snap-align: start; }
+    .bench-strip figure { width: min-content; }
+    .bench-media {
+      display: block; height: var(--h); aspect-ratio: var(--ar, 3 / 4);
+      border-radius: 12px; overflow: hidden; background: var(--bg-alt);
+      box-shadow: 0 0 0 1px var(--line); padding: 0; border: 0;
+    }
+    .bench-media img, .bench-media video { width: 100%; height: 100%; object-fit: cover; display: block; }
+    button.bench-media { cursor: zoom-in; transition: transform 0.45s var(--ease-out), box-shadow 0.3s ease; -webkit-tap-highlight-color: transparent; }
+    @media (hover: hover) { button.bench-media:hover { box-shadow: 0 0 0 1px var(--line-strong); } }
+    button.bench-media:active { transform: scale(0.98); transition-duration: 0.1s; }
+    .bench-strip figcaption { margin-top: 10px; min-width: 100%; }
+    .bench-strip figcaption b, figcaption b { color: var(--accent-ink); font-weight: 500; margin-right: 6px; }
+    @media (max-width: 560px) { .bench-strip { --h: 280px; } }
+
+    /* Lightbox */
+    .lightbox { padding: 0; border: 0; background: transparent; max-width: min(92vw, 1100px); max-height: 92vh; overflow: visible; }
+    .lightbox::backdrop { background: rgba(10, 10, 9, 0.82); }
+    .lightbox[open] { animation: lb-in 0.35s var(--ease-out); }
+    @keyframes lb-in { from { opacity: 0; transform: scale(0.96); } }
+    .lightbox img { max-width: min(92vw, 1100px); max-height: 82vh; width: auto; border-radius: 12px; }
+    .lightbox p { margin-top: 12px; color: rgba(241, 239, 233, 0.75); text-align: center; }
+    .lightbox button {
+      position: absolute; top: -48px; right: 0; width: 40px; height: 40px; border-radius: 50%; border: 0; cursor: pointer;
+      background: rgba(241, 239, 233, 0.14); color: #f1efe9; display: grid; place-items: center;
+    }
+    .lightbox button svg { width: 14px; height: 14px; }
+
+    /* NORTHBOLT: clip above the diagram */
+    .media-stack { width: 100%; max-width: 440px; display: grid; gap: 28px; }
+    .clip video { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; object-position: 50% 30%; border-radius: 12px; background: #000; box-shadow: 0 0 0 1px var(--line); display: block; }
+    .clip figcaption { margin-top: 10px; }
+
+    /* Automatic bell photos */
+    .pair { width: 100%; max-width: 440px; display: grid; grid-template-columns: 1.3fr 1fr; gap: 12px; align-items: end; }
+    .pair .bench-media { height: auto; width: 100%; }
+    .pair figcaption { grid-column: 1 / -1; }
+
+    /* ---------- Software cards ---------- */
+    .software { display: grid; gap: 20px; }
+    .shot { width: 100%; border-radius: 12px; overflow: hidden; box-shadow: 0 0 0 1px var(--line), 0 18px 40px rgba(0, 0, 0, 0.12); }
+    .shot img { width: 100%; display: block; }
+    .device .links { display: flex; flex-wrap: wrap; gap: 4px 24px; margin-top: 18px; }
+    .device .links .btn-link { margin-top: 0; }
+
+    .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    .card {
+      position: relative; display: flex; flex-direction: column;
+      background: var(--tile); border-radius: var(--radius-lg); overflow: hidden;
+      box-shadow: 0 0 0 1px var(--line);
+      transition: box-shadow 0.3s ease, transform 0.45s var(--ease-out);
+      -webkit-tap-highlight-color: transparent;
+    }
+    @media (hover: hover) { .card:hover { box-shadow: 0 0 0 1px var(--line-strong); } }
+    .card:active { transform: scale(0.985); transition-duration: 0.1s; }
+    /* The main link covers the whole card; the second link sits above it */
+    .card .stretch::after { content: ""; position: absolute; inset: 0; border-radius: inherit; }
+    .card .card-links a:not(.stretch) { position: relative; z-index: 1; }
+    .card-media { aspect-ratio: 16 / 10; overflow: hidden; background: var(--bg-alt); border-bottom: 1px solid var(--line); }
+    .card-media img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 0; transition: transform 0.8s var(--ease-out); }
+    @media (hover: hover) { .card:hover .card-media img { transform: scale(1.03); } }
+    .card-body { padding: 24px 26px 20px; display: flex; flex-direction: column; flex: 1; }
+    .card-body .h4 { font-size: 1.75rem; font-weight: 600; letter-spacing: -0.04em; line-height: 1.05; }
+    .card-body p { margin-top: 10px; color: var(--ink-2); font-size: 1rem; }
+    .card-foot { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-top: auto; padding-top: 18px; }
+    .card-links { display: flex; gap: 18px; }
+    /* Schema readout for a project without a public screenshot */
+    .schema { display: grid; align-content: center; padding: 22px 24px; background: #151513; color: #f1efe9; }
+    .schema pre { margin: 0; font: 500 0.8125rem/1.75 var(--mono); white-space: pre-wrap; }
+    .schema .k { color: #ff8a52; }
+    .schema .m { color: #8a8880; }
+    /* Wide card: media beside the text */
+    .card.wide { grid-column: span 2; flex-direction: row; }
+    .card.wide .card-media { flex: 1.15; aspect-ratio: auto; border-bottom: 0; border-right: 1px solid var(--line); background: #fff; }
+    .card.wide .card-media img { object-fit: contain; object-position: 50% 50%; padding: 12px; }
+    .card.wide .card-body { flex: 1; }
+    @media (prefers-color-scheme: dark) { .card.wide .card-media img { filter: brightness(0.92); } }
+    @media (max-width: 1020px) {
+      .cards { grid-template-columns: repeat(2, 1fr); }
+      .card.wide { grid-column: 1 / -1; }
+    }
+    @media (max-width: 680px) {
+      .cards { grid-template-columns: 1fr; }
+      .card.wide { flex-direction: column; }
+      .card.wide .card-media { aspect-ratio: 5 / 3; border-right: 0; border-bottom: 1px solid var(--line); }
+    }
+
+    /* ---------- About ---------- */
+    .about-grid { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: clamp(32px, 6vw, 96px); align-items: start; }
+    .statement { font-size: clamp(1.625rem, 3vw, 2.375rem); line-height: 1.15; letter-spacing: -0.035em; font-weight: 500; }
+    .statement .muted { color: var(--ink-3); }
+    .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: clamp(48px, 7vw, 88px); }
+    .stat { background: var(--tile); border-radius: var(--radius-md); padding: 22px 24px 24px; box-shadow: 0 0 0 1px var(--line); }
+    .stat strong { display: block; margin-top: 28px; font-size: clamp(2.75rem, 5vw, 4rem); font-weight: 600; letter-spacing: -0.05em; line-height: 0.9; }
+    .stat p { margin-top: 10px; color: var(--ink-2); font-size: 0.9375rem; }
+    @media (max-width: 860px) { .about-grid { grid-template-columns: 1fr; } }
+    @media (max-width: 640px) { .stats { grid-template-columns: 1fr; } }
+
+    /* ---------- Contact (inverted block) ---------- */
+    .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(32px, 6vw, 96px); align-items: start; }
+    .big-mail {
+      display: inline-block; margin-top: 28px;
+      font-size: clamp(1.5rem, 3.6vw, 2.75rem); font-weight: 600; letter-spacing: -0.04em; line-height: 1.1;
+      background: linear-gradient(var(--accent), var(--accent)) 0 100% / 100% 2px no-repeat;
+      padding-bottom: 6px; word-break: break-word;
+      transition: background-size 0.4s var(--ease-out), color 0.2s ease;
+    }
+    @media (hover: hover) { .big-mail:hover { color: var(--accent-ink); } }
+    .contact-list { margin-top: 36px; border-bottom: 1px solid var(--line); }
+    .contact-list > a, .contact-list > div {
+      display: grid; grid-template-columns: 12ch 1fr auto; gap: 16px; align-items: center;
+      min-height: 52px; border-top: 1px solid var(--line);
+    }
+    .contact-list span:nth-child(2) { font-weight: 500; }
+    .contact-list svg { width: 9px; height: 14px; color: var(--accent); }
+    @media (hover: hover) { .contact-list > a:hover span:nth-child(2) { color: var(--accent-ink); } }
+    .form { background: var(--tile); border-radius: var(--radius-lg); padding: clamp(22px, 3.5vw, 36px); box-shadow: 0 0 0 1px var(--line); display: grid; gap: 18px; }
+    .field label { display: block; margin-bottom: 8px; }
+    .field input, .field textarea {
+      width: 100%; font: inherit; color: var(--ink);
+      background: var(--bg); border: 1px solid var(--line); border-radius: var(--radius-sm);
+      padding: 13px 14px; min-height: 48px;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+    .field textarea { resize: vertical; min-height: 140px; }
+    .field input::placeholder, .field textarea::placeholder { color: var(--ink-3); }
+    .field input:focus, .field textarea:focus {
+      outline: none; border-color: var(--accent);
+      box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 25%, transparent);
+    }
+    .form .btn { width: 100%; min-height: 52px; }
+    .form .btn[disabled] { opacity: 0.6; cursor: default; }
+    .form-status { min-height: 1.5em; text-align: center; }
+    .form-status.ok { color: var(--ok); }
+    .form-status.err { color: #ff6961; }
+    @media (max-width: 860px) {
+      .contact-grid { grid-template-columns: 1fr; }
+      .contact-list > a, .contact-list > div { grid-template-columns: 9ch 1fr auto; }
+    }
+
+    /* ---------- Accessibility preferences (page parts; shared ones live in css/site.css) ---------- */
+    @media (prefers-reduced-motion: reduce) {
+      .card, .card-media img, .meter-btn, a.tile-small, .big-mail { transition-property: opacity, background-color, box-shadow, color !important; }
+      .card:active, .card:hover .card-media img, a.tile-small:active { transform: none; }
+    }
+    @media (prefers-contrast: more) {
+      .tile, .device, .card, .stat, .form { box-shadow: 0 0 0 1px var(--line-strong); }
     }
   </style>
 </head>
-<body class="bg-gray-50 text-gray-800 font-inter overflow-x-hidden">
+<body>
 
-  <!-- Header with smooth scroll -->
-  <header class="bg-white/80 backdrop-blur-md shadow-sm fixed w-full top-0 z-50 transition-all duration-300">
-    <nav class="max-w-6xl mx-auto flex justify-between items-center p-4" aria-label="Primary navigation">
-      <div class="flex items-center space-x-3">
-        <div class="w-12 h-12 bg-gradient-to-br from-blue-600 to-purple-600 rounded-xl flex items-center justify-center text-white font-bold text-xl animate-glow">
-          PP
-        </div>
-        <span class="font-semibold text-lg">Pelumi Peter</span>
-      </div>
-      <ul class="flex space-x-6 text-sm font-medium">
-        <li><a href="#home" class="nav-link hover:text-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-600 px-3 py-2 rounded-lg transition-all duration-300">Home</a></li>
-        <li><a href="#about" class="nav-link hover:text-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-600 px-3 py-2 rounded-lg transition-all duration-300">About</a></li>
-        <li><a href="#portfolio" class="nav-link hover:text-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-600 px-3 py-2 rounded-lg transition-all duration-300">Portfolio</a></li>
-        <li><a href="blog.html" class="nav-link hover:text-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-600 px-3 py-2 rounded-lg transition-all duration-300">Lab</a></li>
-        <li><a href="#contact" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-all duration-300 transform hover:scale-105">Contact</a></li>
-      </ul>
-    </nav>
+  <header class="nav" id="nav">
+    <div class="container nav-inner">
+      <a class="brand" href="#top">Pelumi Peter <span class="label">Embedded</span></a>
+      <nav aria-label="Primary">
+        <ul class="nav-links">
+          <li><a href="#embedded" data-spy>Devices</a></li>
+          <li><a href="#software" data-spy>Software</a></li>
+          <li><a href="#about" data-spy>About</a></li>
+          <li><a href="blog.html">Lab notes</a></li>
+          <li><a href="#contact" class="nav-cta">Contact</a></li>
+        </ul>
+      </nav>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-sheet" aria-label="Open menu">
+        <span></span><span></span>
+      </button>
+    </div>
+    <div class="nav-sheet" id="nav-sheet">
+      <a href="#embedded"><span class="label">01</span>Devices</a>
+      <a href="#software"><span class="label">02</span>Software</a>
+      <a href="#about"><span class="label">03</span>About</a>
+      <a href="blog.html"><span class="label">04</span>Lab notes</a>
+      <a href="#contact"><span class="label">05</span>Contact</a>
+    </div>
   </header>
 
-  <!-- Hero Section with enhanced animations -->
-  <section id="home" class="min-h-screen flex items-center gradient-bg relative overflow-hidden pt-20">
-    <!-- Animated background elements -->
-    <div class="absolute inset-0">
-      <div class="absolute top-20 left-10 w-72 h-72 bg-white/10 rounded-full blur-3xl animate-float"></div>
-      <div class="absolute bottom-20 right-10 w-96 h-96 bg-purple-300/20 rounded-full blur-3xl animate-float" style="animation-delay: -3s;"></div>
-    </div>
-    
-    <div class="max-w-6xl mx-auto px-4 py-16 grid md:grid-cols-2 gap-12 items-center relative z-10">
-      <div class="animate-slide-up">
-        <div class="mb-6">
-          <span class="inline-block bg-white/20 text-white px-4 py-2 rounded-full text-sm font-medium backdrop-blur-md">
-            Available for new projects
-          </span>
-        </div>
-        <h1 class="text-4xl md:text-6xl font-bold mb-6 text-white leading-tight">
-          Building <span class="bg-gradient-to-r from-yellow-400 to-orange-500 bg-clip-text text-transparent">Innovative</span><br>
-          Hardware & Software Solutions
-        </h1>
-        <p class="text-xl mb-8 text-white/90 leading-relaxed">I design intelligent hardware systems, craft beautiful user interfaces, and bring ideas to life as a founder.</p>
-        
-        <!-- Tech stack badges -->
-        <div class="flex flex-wrap gap-3 mb-8">
-          <span class="tech-badge bg-white/20 backdrop-blur-md text-white px-3 py-1 rounded-full text-sm">IoT</span>
-          <span class="tech-badge bg-white/20 backdrop-blur-md text-white px-3 py-1 rounded-full text-sm">React</span>
-          <span class="tech-badge bg-white/20 backdrop-blur-md text-white px-3 py-1 rounded-full text-sm">Hardware Design</span>
-          <span class="tech-badge bg-white/20 backdrop-blur-md text-white px-3 py-1 rounded-full text-sm">AI Integration</span>
-        </div>
-        
-        <div class="flex space-x-4">
-          <a href="#portfolio" class="bg-white text-gray-800 px-6 py-3 rounded-xl shadow-lg hover:shadow-xl font-medium transition-all duration-300 transform hover:scale-105">
-            View My Work
+  <main>
+    <!-- ================= Hero ================= -->
+    <section class="hero" id="top">
+      <div class="container">
+        <div class="bento">
+          <div class="tile tile-intro reveal">
+            <span class="label">Embedded systems engineer — Ibadan, NG</span>
+            <div>
+              <h1 class="display">From sensor<br>to screen.</h1>
+              <p class="lead">I'm Pelumi Peter. I design the circuits, write the firmware and build the apps for devices people use every day, then ship them as products.</p>
+              <div class="actions">
+                <a class="btn btn-primary" href="#embedded">See the devices</a>
+                <a class="btn btn-ghost" href="#contact">Start a project</a>
+              </div>
+            </div>
+          </div>
+
+          <figure class="tile tile-portrait reveal" data-delay="1">
+            <img src="image/portrait.webp" alt="Portrait of Pelumi Peter" width="900" height="1160" fetchpriority="high" />
+            <figcaption><span class="label">Fig. 01</span><span class="label">Pelumi Peter</span></figcaption>
+          </figure>
+
+          <div class="tile tile-small reveal" data-delay="1">
+            <span class="label">Local time · WAT</span>
+            <div>
+              <div class="readout" data-clock>--:--:--</div>
+              <p>Ibadan, Nigeria · 7.38°N 3.95°E</p>
+            </div>
+          </div>
+
+          <a class="tile tile-small reveal" data-delay="2" href="#northbolt">
+            <div class="tile-row"><span class="label">Now building</span>
+              <svg viewBox="0 0 9 14" aria-hidden="true"><path d="M1.5 1.5 7 7l-5.5 5.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            <p><strong>NORTHBOLT</strong>A touch UI, print server and safer firmware for the Skriware 2 3D printer.</p>
           </a>
-          <a href="#contact" class="glass-effect text-white px-6 py-3 rounded-xl font-medium transition-all duration-300 transform hover:scale-105">
-            Let's Work Together
-          </a>
-        </div>
-      </div>
-      
-      <div class="flex justify-center animate-slide-up" style="animation-delay: 0.3s;">
-        <div class="relative">
-          <div class="w-80 h-80 bg-white/20 backdrop-blur-md rounded-3xl p-8 transform rotate-6 hover:rotate-0 transition-transform duration-500">
-           <div class="absolute inset-0 flex items-center justify-center text-white text-6xl bg-center bg-cover"
-                 style="background-image: url('image/IMG_9563.JPG');">
-            </div>
-          </div>
-          <div class="absolute -bottom-4 -right-4 w-24 h-24 bg-yellow-400 rounded-full flex items-center justify-center text-2xl animate-bounce-gentle">
-            💡
-          </div>
-        </div>
-      </div>
-    </div>
-    
-    <!-- Scroll indicator -->
-    <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce-gentle">
-      <div class="w-6 h-10 border-2 border-white/50 rounded-full flex justify-center">
-        <div class="w-1 h-3 bg-white/50 rounded-full mt-2 animate-pulse"></div>
-      </div>
-    </div>
-  </section>
 
-  <!-- About Section -->
-  <section id="about" class="py-20 bg-white">
-    <div class="max-w-6xl mx-auto px-4">
-      <div class="text-center mb-16 animate-slide-up">
-        <h2 class="text-4xl font-bold mb-4 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">About Me</h2>
-        <div class="w-24 h-1 bg-gradient-to-r from-blue-600 to-purple-600 mx-auto rounded-full"></div>
-      </div>
-      
-      <div class="grid md:grid-cols-2 gap-16 items-center">
-        <div class="animate-slide-up">
-          <p class="text-lg text-gray-700 mb-8 leading-relaxed">
-            I'm Pelumi Peter, a Nigeria-based engineer specializing in hardware embedded systems, IoT device design, and frontend development using React and modern web technologies. As a founder, I've led projects from concept to market, blending hardware innovation with seamless user experiences.
-          </p>
-          
-          <!-- Skills progress bars -->
-          <div class="space-y-6">
-            <div class="skill-item">
-              <div class="flex justify-between mb-2">
-                <span class="font-medium">Hardware Design</span>
-                <span class="text-blue-600">95%</span>
-              </div>
-              <div class="w-full bg-gray-200 rounded-full h-3">
-                <div class="bg-gradient-to-r from-blue-600 to-blue-400 h-3 rounded-full skill-bar" style="width: 0%" data-width="95%"></div>
-              </div>
-            </div>
-            
-            <div class="skill-item">
-              <div class="flex justify-between mb-2">
-                <span class="font-medium">React Development</span>
-                <span class="text-purple-600">90%</span>
-              </div>
-              <div class="w-full bg-gray-200 rounded-full h-3">
-                <div class="bg-gradient-to-r from-purple-600 to-purple-400 h-3 rounded-full skill-bar" style="width: 0%" data-width="90%"></div>
-              </div>
-            </div>
-            
-            <div class="skill-item">
-              <div class="flex justify-between mb-2">
-                <span class="font-medium">IoT Systems</span>
-                <span class="text-green-600">88%</span>
-              </div>
-              <div class="w-full bg-gray-200 rounded-full h-3">
-                <div class="bg-gradient-to-r from-green-600 to-green-400 h-3 rounded-full skill-bar" style="width: 0%" data-width="88%"></div>
-              </div>
-            </div>
+          <div class="tile tile-small wide reveal" data-delay="3">
+            <span class="label">Status</span>
+            <p><strong class="live">Available for new projects</strong>Hardware, firmware or the app around it. I reply within 24 hours.</p>
           </div>
         </div>
-        
-        <div class="grid gap-6 animate-slide-up" style="animation-delay: 0.3s;">
-          <div class="bg-gradient-to-br from-blue-50 to-blue-100 p-8 rounded-2xl card-hover">
-            <div class="w-16 h-16 bg-blue-600 rounded-2xl flex items-center justify-center text-white text-2xl mb-4">🔧</div>
-            <h3 class="font-semibold text-xl mb-3">Hardware Expert</h3>
-            <p class="text-gray-600">Designing and prototyping intelligent hardware systems with focus on power efficiency and reliability.</p>
-          </div>
-          
-          <div class="bg-gradient-to-br from-purple-50 to-purple-100 p-8 rounded-2xl card-hover">
-            <div class="w-16 h-16 bg-purple-600 rounded-2xl flex items-center justify-center text-white text-2xl mb-4">💻</div>
-            <h3 class="font-semibold text-xl mb-3">Software Developer</h3>
-            <p class="text-gray-600">Frontend development with React and modern web technologies, creating seamless user experiences.</p>
-          </div>
-          
-          <div class="bg-gradient-to-br from-green-50 to-green-100 p-8 rounded-2xl card-hover">
-            <div class="w-16 h-16 bg-green-600 rounded-2xl flex items-center justify-center text-white text-2xl mb-4">🚀</div>
-            <h3 class="font-semibold text-xl mb-3">Founder</h3>
-            <p class="text-gray-600">Leading product development from concept to market, with proven track record of successful launches.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
 
-  <!-- Portfolio Section -->
-  <section id="portfolio" class="py-20 bg-gray-50">
-    <div class="max-w-6xl mx-auto px-4">
-      <div class="text-center mb-16 animate-slide-up">
-        <h2 class="text-4xl font-bold mb-4">Featured Projects</h2>
-        <p class="text-xl text-gray-600 max-w-2xl mx-auto">A showcase of my recent work in hardware design, software development, and product innovation.</p>
+        <ul class="stack-strip label reveal" aria-label="Tools I work with">
+          <li>Stack</li><li>ESP32</li><li>ESP8266</li><li>AVR</li><li>Raspberry Pi</li><li>C / C++</li><li>Python</li><li>TypeScript</li><li>Next.js</li>
+        </ul>
       </div>
-      
-      <div class="grid md:grid-cols-3 gap-8">
-        <div class="project-card bg-white rounded-3xl overflow-hidden shadow-lg card-hover animate-slide-up">
-          <div class="h-48 bg-gradient-to-br from-blue-400 to-blue-600 relative overflow-hidden">
-            <div class="absolute inset-0 flex items-center justify-center text-white text-6xl">
-              <img src="image/esp.png" alt="iot-power-efficiency">
+    </section>
 
-            </div>
-            <div class="absolute top-4 right-4 bg-white/20 backdrop-blur-md px-3 py-1 rounded-full text-white text-sm">IoT</div>
-          </div>
-          <div class="p-6">
-            <h3 class="font-bold text-xl mb-3">Low-Power IoT Attendance System</h3>
-            <p class="text-gray-600 mb-4">A battery-efficient, wireless attendance monitoring system using IoT technology designed to record and transmit attendance data reliably over long periods.</p>
-            <div class="flex flex-wrap gap-2 mb-4">
-              <span class="bg-blue-100 text-blue-800 px-2 py-1 rounded-full text-xs">IoT</span>
-              <span class="bg-green-100 text-green-800 px-2 py-1 rounded-full text-xs">Low Power</span>
-              <span class="bg-purple-100 text-purple-800 px-2 py-1 rounded-full text-xs">Hardware</span>
-            </div>
-            <button class="w-full bg-blue-600 text-white py-3 rounded-xl hover:bg-blue-700 transition-all duration-300 transform hover:scale-105">
-              <a href="https://github.com/ppeterz/Automatic-attendance-system.git">View Project</a>
-            </button>
-          </div>
+    <!-- ================= Embedded ================= -->
+    <section class="section-alt" id="embedded">
+      <div class="container">
+        <div class="section-head reveal">
+          <div class="index-row label"><span>01</span><span>Embedded systems</span><span>4 devices</span></div>
+          <h2 class="h2">Built down to the pin.</h2>
+          <p class="lead">Four devices, from sampling mains power at 4&nbsp;kHz to keeping a 3D printer from overheating. Real builds, photographed on the bench.</p>
         </div>
-        
-        <div class="project-card bg-white rounded-3xl overflow-hidden shadow-lg card-hover animate-slide-up" style="animation-delay: 0.2s;">
-          <div class="h-48 bg-gradient-to-br from-purple-400 to-purple-600 relative overflow-hidden">
-            <div class="absolute inset-0 flex items-center justify-center text-white text-6xl bg-center bg-cover"
-                 style="background-image: url('image/Gemini_Generated_Image_rrez4orrez4orrez.png');">
-              
-            </div>
-            <div class="absolute top-4 right-4 bg-white/20 backdrop-blur-md px-3 py-1 rounded-full text-white text-sm">AI</div>
-          </div>
-          <div class="p-6">
-            <h3 class="font-bold text-xl mb-3">AI Lesson Notes Generator</h3>
-            <p class="text-gray-600 mb-4">An intelligent AI-powered tool that automatically generates detailed, customizable lesson notes from curriculum input, enhancing educators' productivity.</p>
-            <div class="flex flex-wrap gap-2 mb-4">
-              <span class="bg-purple-100 text-purple-800 px-2 py-1 rounded-full text-xs">AI</span>
-              <span class="bg-blue-100 text-blue-800 px-2 py-1 rounded-full text-xs">React</span>
-              <span class="bg-green-100 text-green-800 px-2 py-1 rounded-full text-xs">Education</span>
-            </div>
-            <button class="w-full bg-purple-600 text-white py-3 rounded-xl hover:bg-purple-700 transition-all duration-300 transform hover:scale-105">
-              <a href="https://lessonsquill.com/">View Project</a>
-            </button>
-          </div>
-        </div>
-        
-        <div class="project-card bg-white rounded-3xl overflow-hidden shadow-lg card-hover animate-slide-up" style="animation-delay: 0.4s;">
-          <div class="h-48 bg-gradient-to-br from-green-400 to-green-600 relative overflow-hidden">
-             <div class="absolute inset-0 flex items-center justify-center text-white text-6xl bg-center bg-cover"
-                 style="background-image: url('image/Screenshot_12-8-2025_10540_127.0.0.1.jpeg');">
-            </div>
-            <div class="absolute top-4 right-4 bg-white/20 backdrop-blur-md px-3 py-1 rounded-full text-white text-sm">Design</div>
-          </div>
-          <div class="p-6">
-            <h3 class="font-bold text-xl mb-3">Deco Interio</h3>
-            <p class="text-gray-600 mb-4">A modern interior design project showcasing creative space planning and aesthetic enhancements tailored to client preferences.</p>
-            <div class="flex flex-wrap gap-2 mb-4">
-              <span class="bg-green-100 text-green-800 px-2 py-1 rounded-full text-xs">Design</span>
-              <span class="bg-orange-100 text-orange-800 px-2 py-1 rounded-full text-xs">Interior</span>
-              <span class="bg-pink-100 text-pink-800 px-2 py-1 rounded-full text-xs">Creative</span>
-            </div>
-            <button class="w-full bg-green-600 text-white py-3 rounded-xl hover:bg-green-700 transition-all duration-300 transform hover:scale-105">
-             <a href="https://decod.netlify.app">View Project</a> 
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
 
-  <!-- Founder Achievement Section -->
-  <section class="py-20 bg-white">
-    <div class="max-w-6xl mx-auto px-4">
-      <div class="text-center mb-16 animate-slide-up">
-        <h2 class="text-4xl font-bold mb-4">Founder & Product Creator</h2>
-        <p class="text-xl text-gray-600">Building products that make a difference</p>
-      </div>
-      
-      <div class="grid md:grid-cols-3 gap-8">
-        <div class="text-center bg-gradient-to-br from-blue-50 to-blue-100 p-8 rounded-3xl card-hover animate-slide-up">
-          <div class="w-20 h-20 bg-blue-600 rounded-full flex items-center justify-center text-white text-3xl mx-auto mb-6">🚀</div>
-          <h3 class="font-bold text-2xl mb-3">MVP Launch</h3>
-          <p class="text-gray-600 mb-4">Successfully launched a Minimum Viable Product that garnered positive user feedback and market interest. Bootstrapped and live.</p>
-          <div class="text-3xl font-bold text-blue-600">100%</div>
-          <div class="text-sm text-gray-500">Bootstrap Success</div>
-        </div>
-        
-        <div class="text-center bg-gradient-to-br from-green-50 to-green-100 p-8 rounded-3xl card-hover animate-slide-up" style="animation-delay: 0.2s;">
-          <div class="w-20 h-20 bg-green-600 rounded-full flex items-center justify-center text-white text-3xl mx-auto mb-6">👥</div>
-          <h3 class="font-bold text-2xl mb-3">Daily Users</h3>
-          <p class="text-gray-600 mb-4">Achieved strong user engagement within the first month of launch, demonstrating product-market fit.</p>
-          <div class="text-3xl font-bold text-green-600" data-count="100">0</div>
-          <div class="text-sm text-gray-500">Active Users</div>
-        </div>
-        
-        <div class="text-center bg-gradient-to-br from-purple-50 to-purple-100 p-8 rounded-3xl card-hover animate-slide-up" style="animation-delay: 0.4s;">
-          <div class="w-20 h-20 bg-purple-600 rounded-full flex items-center justify-center text-white text-3xl mx-auto mb-6">🤖</div>
-          <h3 class="font-bold text-2xl mb-3">AI Integration</h3>
-          <p class="text-gray-600 mb-4">Integrated advanced AI features into the product, enhancing user experience and automating key functionalities.</p>
-          <div class="text-3xl font-bold text-purple-600">AI</div>
-          <div class="text-sm text-gray-500">Powered Features</div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Contact Section -->
-  <section id="contact" class="py-20 bg-gray-900 text-white">
-    <div class="max-w-4xl mx-auto px-4">
-      <div class="text-center mb-16 animate-slide-up">
-        <h2 class="text-4xl font-bold mb-4">Let's Build Something Amazing</h2>
-        <p class="text-xl text-gray-300">Ready to turn your ideas into reality? Let's talk!</p>
-      </div>
-
-      <div class="grid md:grid-cols-2 gap-16">
-        <div class="animate-slide-up">
-          <form action="https://formspree.io/f/mdkdbzyk" method="POST" class="space-y-6">
-            <div class="space-y-4">
-              <div>
-                <label for="name" class="block mb-2 font-medium">Your Name</label>
-                <input
-                  type="text"
-                  id="name"
-                  name="name"
-                  required
-                  placeholder="Enter your full name"
-                  class="w-full bg-gray-800 border border-gray-700 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent transition-all duration-300"
-                />
+        <div class="devices">
+          <!-- Energy Meter V3 -->
+          <article class="device reveal" id="energy-meter">
+            <header class="device-bar label"><span>01 / 04</span><span>EM-V3</span><span>Firmware 3.1.2</span></header>
+            <div class="device-grid">
+              <div class="device-media">
+                <div class="meter" data-meter>
+                  <div class="meter-body">
+                    <div class="lcd" aria-hidden="true"></div>
+                    <p class="sr-only" aria-live="polite" data-meter-live></p>
+                    <div class="sockets" aria-hidden="true">
+                      <div class="socket" data-socket="1"><i class="led"></i><svg viewBox="0 0 24 24"><rect x="10.5" y="3" width="3" height="7" rx="0.6" fill="currentColor"/><rect x="3.5" y="13" width="6" height="3" rx="0.6" fill="currentColor"/><rect x="14.5" y="13" width="6" height="3" rx="0.6" fill="currentColor"/></svg><span class="lbl">S1</span></div>
+                      <div class="socket" data-socket="2"><i class="led"></i><svg viewBox="0 0 24 24"><rect x="10.5" y="3" width="3" height="7" rx="0.6" fill="currentColor"/><rect x="3.5" y="13" width="6" height="3" rx="0.6" fill="currentColor"/><rect x="14.5" y="13" width="6" height="3" rx="0.6" fill="currentColor"/></svg><span class="lbl">S2</span></div>
+                      <div class="socket" data-socket="3"><i class="led"></i><svg viewBox="0 0 24 24"><rect x="10.5" y="3" width="3" height="7" rx="0.6" fill="currentColor"/><rect x="3.5" y="13" width="6" height="3" rx="0.6" fill="currentColor"/><rect x="14.5" y="13" width="6" height="3" rx="0.6" fill="currentColor"/></svg><span class="lbl">S3</span></div>
+                    </div>
+                    <div class="meter-controls">
+                      <div class="meter-dots" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+                      <button class="meter-btn" type="button" aria-label="Meter button. Press to change screens, hold to switch the socket." aria-describedby="meter-hint">
+                        <svg viewBox="0 0 68 68" aria-hidden="true">
+                          <circle class="track" cx="34" cy="34" r="31" fill="none" stroke-width="3"/>
+                          <circle class="progress" cx="34" cy="34" r="31" fill="none" stroke-width="3" stroke-linecap="round"/>
+                        </svg>
+                      </button>
+                    </div>
+                    <p class="meter-hint" id="meter-hint" data-meter-hint>Tap to change screens. Hold to switch.</p>
+                  </div>
+                  <p class="meter-caption label">Try it: the device's own screens and button · readings from a bench test</p>
+                </div>
               </div>
-
-              <div>
-                <label for="email" class="block mb-2 font-medium">Email Address</label>
-                <input
-                  type="email"
-                  id="email"
-                  name="email"
-                  required
-                  placeholder="you@example.com"
-                  class="w-full bg-gray-800 border border-gray-700 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent transition-all duration-300"
-                />
-              </div>
-
-              <div>
-                <label for="message" class="block mb-2 font-medium">Your Message</label>
-                <textarea
-                  id="message"
-                  name="message"
-                  rows="5"
-                  required
-                  placeholder="Tell me about your project..."
-                  class="w-full bg-gray-800 border border-gray-700 rounded-xl px-4 py-3 resize-none focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent transition-all duration-300"
-                ></textarea>
+              <div class="device-body">
+                <h3 class="h3">Energy Meter V3</h3>
+                <p class="device-tag">A smart three-socket extension box that shows what each socket costs you, in Naira.</p>
+                <dl class="spec">
+                  <div><dt>MCU</dt><dd>ESP32</dd></div>
+                  <div><dt>Sensing</dt><dd>ZMPT101B voltage, 4× ACS712 current</dd></div>
+                  <div><dt>Sampling</dt><dd>4 kHz, 800 samples = ten 50 Hz cycles</dd></div>
+                  <div><dt>Outputs</dt><dd>3 relays, 16×2 I²C LCD</dd></div>
+                  <div><dt>Network</dt><dd>On-device dashboard, Blynk, GitHub OTA</dd></div>
+                </dl>
+                <ol class="notes">
+                  <li>Measuring whole mains cycles means real power has no partial-cycle error.</li>
+                  <li>Prices energy with all five IBEDC tariff bands plus 7.5% VAT, and keeps the band in flash across reboots.</li>
+                  <li>Updates itself from GitHub releases, with download progress on the LCD.</li>
+                </ol>
+                <a class="btn-link" href="https://github.com/ppeterz/EnergyMeterV3" target="_blank" rel="noopener">View on GitHub
+                  <svg viewBox="0 0 9 14" aria-hidden="true"><path d="M1.5 1.5 7 7l-5.5 5.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </a>
               </div>
             </div>
 
-            <button
-              type="submit"
-              class="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold py-4 rounded-xl hover:from-blue-700 hover:to-purple-700 transition-all duration-300 transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-blue-500/50"
-            >
-              Send Message 
-            </button>
+            <div class="bench" data-bench>
+              <div class="bench-head">
+                <span class="label">From the bench · 8 frames</span>
+                <span class="bench-nav">
+                  <button type="button" data-dir="-1" aria-label="Scroll back"><svg viewBox="0 0 9 14" aria-hidden="true"><path d="M7.5 1.5 2 7l5.5 5.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+                  <button type="button" data-dir="1" aria-label="Scroll forward"><svg viewBox="0 0 9 14" aria-hidden="true"><path d="M1.5 1.5 7 7l-5.5 5.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+                </span>
+              </div>
+              <ul class="bench-strip" tabindex="0" aria-label="Energy Meter V3 build photos and videos">
+                <li><figure>
+                  <div class="bench-media" style="--ar: 9 / 16"><video data-loop src="video/em-bench-test.mp4" poster="image/bench/em-bench-test-poster.jpg" muted loop playsinline preload="none" aria-label="The meter under load: socket 1 reads 9.62 A and 1913 W, then the overview shows 212 V, band A and 165.63 naira in total"></video></div>
+                  <figcaption class="label"><b>02</b> Bench test: 1.9 kW on socket 1</figcaption>
+                </figure></li>
+                <li><figure>
+                  <button type="button" class="bench-media" style="--ar: 4 / 3" data-zoom><img src="image/bench/em-dashboard.jpg" alt="The Energy Monitor V3 web dashboard: 204 V, 13 W total, 16.18 naira, tariff band B, with a card and switch for each socket" loading="lazy" width="1280" height="960" /></button>
+                  <figcaption class="label"><b>03</b> Dashboard served by the ESP32</figcaption>
+                </figure></li>
+                <li><figure>
+                  <button type="button" class="bench-media" data-zoom><img src="image/bench/em-lcd-wifi.jpg" alt="The 16×2 LCD on the enclosure lid reading WiFi Connected! and the device's local IP address" loading="lazy" width="960" height="1280" /></button>
+                  <figcaption class="label"><b>04</b> Joined Wi-Fi, shows its address</figcaption>
+                </figure></li>
+                <li><figure>
+                  <button type="button" class="bench-media" data-zoom><img src="image/bench/em-internals.jpg" alt="Inside the enclosure: ESP32 on perfboard, four current sensors, a relay module and the mains wiring to three sockets in the lid" loading="lazy" width="960" height="1280" /></button>
+                  <figcaption class="label"><b>05</b> Inside: sensors, relays, mains wiring</figcaption>
+                </figure></li>
+                <li><figure>
+                  <button type="button" class="bench-media" data-zoom><img src="image/bench/em-assembly.jpg" alt="The perfboard with the ESP32, voltage sensor and relays fitted in the 3D-printed enclosure, with a buck converter held above it" loading="lazy" width="960" height="1280" /></button>
+                  <figcaption class="label"><b>06</b> Fitting the board in the printed case</figcaption>
+                </figure></li>
+                <li><figure>
+                  <button type="button" class="bench-media" data-zoom><img src="image/bench/em-prototype.jpg" alt="The first prototype: ESP32 on perfboard wired to a ZMPT101B voltage sensor, an ACS712 current sensor and a four-channel relay board" loading="lazy" width="960" height="1280" /></button>
+                  <figcaption class="label"><b>07</b> First prototype on perfboard</figcaption>
+                </figure></li>
+                <li><figure>
+                  <button type="button" class="bench-media" data-zoom><img src="image/bench/em-psu.jpg" alt="An open AC to DC power supply module with its input and output wires" loading="lazy" width="960" height="1280" /></button>
+                  <figcaption class="label"><b>08</b> The supply that powers it from mains</figcaption>
+                </figure></li>
+                <li><figure>
+                  <div class="bench-media" style="--ar: 9 / 16"><video src="video/em-build.mp4" poster="image/bench/em-build-poster.jpg" controls playsinline preload="none" aria-label="The Energy Meter build, from enclosure and PCB design to the finished meter"></video></div>
+                  <figcaption class="label"><b>09</b> The build, CAD to plugged in · 2 min</figcaption>
+                </figure></li>
+              </ul>
+            </div>
+          </article>
+
+          <!-- NORTHBOLT -->
+          <article class="device reveal" id="northbolt">
+            <header class="device-bar label"><span>02 / 04</span><span>NB-01</span><span>Firmware NB2</span></header>
+            <div class="device-grid">
+              <div class="device-media">
+                <div class="media-stack">
+                <figure class="clip">
+                  <video data-loop src="video/nb-printing-enclosure.mp4" poster="image/bench/nb-printing-poster.jpg" muted loop playsinline preload="none" aria-label="The Skriware 2 printer building the white enclosure for the Energy Meter"></video>
+                  <figcaption class="label"><b class="accent">10</b> The Skriware 2 printing the Energy Meter's case</figcaption>
+                </figure>
+                <div class="stack" role="img" aria-label="System diagram: a phone or laptop connects over Wi-Fi to a Raspberry Pi 3 running NORTHBOLT. The Pi drives the Marlin printer board over USB and the LED and scale board over I2C.">
+                  <div class="node"><b>Phone or laptop</b><span>Browser, PrusaSlicer, OrcaSlicer</span></div>
+                  <div class="wire"><em>Wi-Fi</em></div>
+                  <div class="node accent"><b>Raspberry Pi 3</b><span>NORTHBOLT touch UI + print server</span></div>
+                  <div class="branch">
+                    <div>
+                      <div class="wire"><em>USB</em></div>
+                      <div class="node"><b>ATmega2560</b><span>Marlin 1.1.9 + safety fixes</span></div>
+                    </div>
+                    <div>
+                      <div class="wire"><em>I²C</em></div>
+                      <div class="node"><b>ATmega328P</b><span>LEDs + spool scales</span></div>
+                    </div>
+                  </div>
+                </div>
+                </div>
+              </div>
+              <div class="device-body">
+                <h3 class="h3">NORTHBOLT 3D printer</h3>
+                <p class="device-tag">A new brain for the Skriware 2: a touch UI and print server, with safer firmware underneath.</p>
+                <dl class="spec">
+                  <div><dt>Host</dt><dd>Raspberry Pi 3, Python</dd></div>
+                  <div><dt>Printer</dt><dd>MKS Gen 1.3 (ATmega2560), Marlin 1.1.9</dd></div>
+                  <div><dt>Aux board</dt><dd>ATmega328P: LED strips, HX711 spool scales</dd></div>
+                  <div><dt>Links</dt><dd>USB serial, I²C, Wi-Fi</dd></div>
+                  <div><dt>Build</dt><dd>PlatformIO, releases built from tags</dd></div>
+                </dl>
+                <ol class="notes">
+                  <li>Slicers upload straight to the printer, and it resumes after a power cut without extra hardware.</li>
+                  <li>A bed-leveling assistant shows which screw to turn, which way and how far.</li>
+                  <li>Firmware fixes for thermal protection, unreadable halt messages, an I²C buffer overflow and a delay inside an interrupt.</li>
+                </ol>
+                <a class="btn-link" href="https://github.com/ppeterz/northbolt_3d_printer" target="_blank" rel="noopener">View on GitHub
+                  <svg viewBox="0 0 9 14" aria-hidden="true"><path d="M1.5 1.5 7 7l-5.5 5.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </a>
+              </div>
+            </div>
+          </article>
+
+          <!-- RFID attendance -->
+          <article class="device reveal" id="attendance">
+            <header class="device-bar label"><span>03 / 04</span><span>RF-ATT</span><span>ESP8266</span></header>
+            <div class="device-grid">
+              <div class="device-media">
+                <figure class="circuit">
+                  <img src="image/rfid-circuit.webp" alt="Wiring diagram: NodeMCU ESP8266 connected to an MFRC522 RFID reader over SPI and a 16×2 LCD over I2C" width="898" height="602" loading="lazy" />
+                  <figcaption class="label"><b class="accent">11</b> NodeMCU, MFRC522 and 16×2 I²C LCD</figcaption>
+                </figure>
+              </div>
+              <div class="device-body">
+                <h3 class="h3">Automatic attendance</h3>
+                <p class="device-tag">Tap a card. You're on the sheet.</p>
+                <dl class="spec">
+                  <div><dt>MCU</dt><dd>ESP8266 (NodeMCU)</dd></div>
+                  <div><dt>Reader</dt><dd>MFRC522 RFID over SPI</dd></div>
+                  <div><dt>Display</dt><dd>16×2 I²C LCD, green and red LEDs</dd></div>
+                  <div><dt>Time</dt><dd>NTP, Lagos time</dd></div>
+                  <div><dt>Backend</dt><dd>HTTPS to Google Apps Script → Sheets</dd></div>
+                </dl>
+                <ol class="notes">
+                  <li>One card signs you in and out, with your name on the LCD.</li>
+                  <li>Reloads the day's attendance from the sheet when it starts, so a reboot doesn't forget who's in.</li>
+                  <li>Joins Wi-Fi through a setup hotspot, so no passwords are in the code.</li>
+                </ol>
+                <a class="btn-link" href="https://github.com/ppeterz/Automatic-attendance-system" target="_blank" rel="noopener">View on GitHub
+                  <svg viewBox="0 0 9 14" aria-hidden="true"><path d="M1.5 1.5 7 7l-5.5 5.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Automatic bell -->
+          <article class="device reveal" id="bell">
+            <header class="device-bar label"><span>04 / 04</span><span>HG-BELL</span><span>Firmware 1.0.0</span></header>
+            <div class="device-grid">
+              <div class="device-media">
+                <figure class="pair">
+                  <button type="button" class="bench-media" data-zoom><img src="image/bench/bell-board.jpg" alt="The HoneyGold Bell controller held in hand: an ESP8266 NodeMCU board and a DS3231 real-time clock module on orange perfboard" loading="lazy" width="960" height="1280" /></button>
+                  <button type="button" class="bench-media" data-zoom><img src="image/bench/bell-board-side.jpg" alt="Side view of the bell controller board showing the ESP8266 board, header sockets for the LCD and relay, and the clock module's coin cell" loading="lazy" width="960" height="1280" /></button>
+                  <figcaption class="label"><b class="accent">12</b> ESP8266 and DS3231 clock on perfboard</figcaption>
+                </figure>
+              </div>
+              <div class="device-body">
+                <h3 class="h3">HoneyGold school bell</h3>
+                <p class="device-tag">Rings a school's weekly timetable on its own, and keeps time through power cuts.</p>
+                <dl class="spec">
+                  <div><dt>MCU</dt><dd>ESP8266 (NodeMCU)</dd></div>
+                  <div><dt>Clock</dt><dd>DS3231 RTC with coin-cell backup</dd></div>
+                  <div><dt>Outputs</dt><dd>Relay to the bell, buzzer, 16×2 I²C LCD</dd></div>
+                  <div><dt>Schedule</dt><dd>64 weekly bell events, 24 holidays</dd></div>
+                  <div><dt>Network</dt><dd>LAN-only dashboard, setup hotspot, OTA</dd></div>
+                </dl>
+                <ol class="notes">
+                  <li>Runs entirely on the school's network and never calls out to the internet. Time comes from the RTC, not NTP.</li>
+                  <li>One button runs it without a phone: hold it 1.5&nbsp;s for an emergency ring.</li>
+                  <li>Built to fail safe: a 180&nbsp;s hard cutoff on the relay, a hardware watchdog, and safe mode after three bad boots.</li>
+                </ol>
+                <a class="btn-link" href="https://github.com/ppeterz/automatic_school_bell" target="_blank" rel="noopener">View on GitHub
+                  <svg viewBox="0 0 9 14" aria-hidden="true"><path d="M1.5 1.5 7 7l-5.5 5.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </a>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= Software ================= -->
+    <section id="software">
+      <div class="container">
+        <div class="section-head reveal">
+          <div class="index-row label"><span>02</span><span>Software &amp; products</span><span>6 projects</span></div>
+          <h2 class="h2">And the screens around them.</h2>
+          <p class="lead">Payments that reconcile themselves, AI tools, and a model small enough for a microcontroller.</p>
+        </div>
+
+        <div class="software">
+          <!-- EduPay (featured) -->
+          <article class="device reveal" id="edupay">
+            <header class="device-bar label"><span>Featured</span><span>EDUPAY</span><span>Nomba × DevCareer 2026</span></header>
+            <div class="device-grid">
+              <div class="device-media">
+                <a class="shot" href="https://edupay-five.vercel.app" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true">
+                  <img src="image/sw/edupay.jpg" alt="" width="1200" height="750" loading="lazy" />
+                </a>
+              </div>
+              <div class="device-body">
+                <span class="eyebrow">Fintech · Hackathon build</span>
+                <h3 class="h3">EduPay</h3>
+                <p class="device-tag">Matches parents' bank transfers to school invoices automatically, on real bank rails.</p>
+                <dl class="spec">
+                  <div><dt>Stack</dt><dd>Next.js 16, TypeScript, Firestore</dd></div>
+                  <div><dt>Payments</dt><dd>Nomba virtual accounts, HMAC-signed webhooks</dd></div>
+                  <div><dt>Receipts</dt><dd>PDF on Cloudinary, regenerated on demand</dd></div>
+                  <div><dt>Tests</dt><dd>Vitest unit tests, 13-scenario integration suite</dd></div>
+                </dl>
+                <ol class="notes">
+                  <li>Each student gets a permanent virtual account, so payments match by account, never by name or amount.</li>
+                  <li>One transfer can settle several invoices oldest-first, funding fees by priority. Overpayments carry forward as credit.</li>
+                  <li>Duplicate webhooks can't double-count: payments get a deterministic ID and every balance changes in one transaction.</li>
+                  <li>Found an undocumented Nomba API detail that stopped payment webhooks firing, and it unblocked other teams too.</li>
+                </ol>
+                <div class="links">
+                  <a class="btn-link" href="https://edupay-five.vercel.app" target="_blank" rel="noopener">Live app
+                    <svg viewBox="0 0 9 14" aria-hidden="true"><path d="M1.5 1.5 7 7l-5.5 5.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+                  <a class="btn-link" href="https://github.com/ppeterz/Edupay" target="_blank" rel="noopener">GitHub
+                    <svg viewBox="0 0 9 14" aria-hidden="true"><path d="M1.5 1.5 7 7l-5.5 5.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <div class="cards">
+            <article class="card reveal">
+              <div class="card-media"><img src="image/sw/lessonsquill.webp" alt="" width="1200" height="654" loading="lazy" /></div>
+              <div class="card-body">
+                <span class="eyebrow">AI · Education · Founder</span>
+                <h3 class="h4">LessonsQuill</h3>
+                <p>Turns curriculum input into detailed, editable lesson notes, so teachers spend less time on paperwork.</p>
+                <div class="card-foot"><span class="label">lessonsquill.com</span>
+                  <span class="card-links"><a class="btn-link stretch" href="https://lessonsquill.com/" target="_blank" rel="noopener">Live
+                    <svg viewBox="0 0 9 14" aria-hidden="true"><path d="M1.5 1.5 7 7l-5.5 5.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a></span>
+                </div>
+              </div>
+            </article>
+
+            <article class="card reveal" data-delay="1">
+              <div class="card-media"><img src="image/sw/ovoice.jpg" alt="" width="1200" height="750" loading="lazy" /></div>
+              <div class="card-body">
+                <span class="eyebrow">Audio · AI · Python</span>
+                <h3 class="h4">O-Voice Studio</h3>
+                <p>A voice-over studio: paste a script, pick a voice, export an MP3. It splits scripts at pauses, voices the parts in parallel and stitches timed silence between them. Also an MCP server, so AI agents can use it.</p>
+                <div class="card-foot"><span class="label">FastAPI · Kokoro TTS</span>
+                  <span class="card-links">
+                    <a class="btn-link stretch" href="https://oviceapp.vercel.app" target="_blank" rel="noopener">Live
+                      <svg viewBox="0 0 9 14" aria-hidden="true"><path d="M1.5 1.5 7 7l-5.5 5.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+                    <a class="btn-link" href="https://github.com/ppeterz/oviceapp" target="_blank" rel="noopener">Code
+                      <svg viewBox="0 0 9 14" aria-hidden="true"><path d="M1.5 1.5 7 7l-5.5 5.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+                  </span>
+                </div>
+              </div>
+            </article>
+
+            <article class="card reveal" data-delay="2">
+              <div class="card-media schema" aria-hidden="true"><pre><span class="m">// one call</span>
+<span class="k">analyze</span>(competitorUrl)
+  → fetchPage tool
+  → gemini-2.5-flash
+<span class="m">// returns</span>
+{ <span class="k">techStack</span>, <span class="k">keyFeatures</span>,
+  <span class="k">actionableInsights</span> }</pre></div>
+              <div class="card-body">
+                <span class="eyebrow">AI · Next.js · Genkit</span>
+                <h3 class="h4">CompetitorLens</h3>
+                <p>Paste a competitor's URL and an AI agent reads their site, then reports their tech stack, key features and what to do about them. Shipped with a Firebase waitlist.</p>
+                <div class="card-foot"><span class="label">Gemini 2.5 Flash</span>
+                  <span class="card-links"><a class="btn-link stretch" href="https://github.com/ppeterz/startup1" target="_blank" rel="noopener">Code
+                    <svg viewBox="0 0 9 14" aria-hidden="true"><path d="M1.5 1.5 7 7l-5.5 5.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a></span>
+                </div>
+              </div>
+            </article>
+
+            <article class="card wide reveal">
+              <div class="card-media"><img src="image/sw/asthma-feature_importance.png" alt="Bar chart of feature importance for the gradient boosting model: PM2.5 dominates at about 0.93, followed far behind by SpO2, MQ-135, temperature, humidity and heart rate" width="1484" height="884" loading="lazy" /></div>
+              <div class="card-body">
+                <span class="eyebrow">Machine learning · ESP32</span>
+                <h3 class="h4">Asthma risk model</h3>
+                <p>Predicts low, medium or high asthma risk from air quality and vital signs: PM2.5, gas (MQ-135), temperature, humidity, SpO₂ and heart rate. Trained on a 10,000-sample synthetic dataset built from published medical thresholds.</p>
+                <p>Compares random forest, gradient boosting, SVM and a neural net, with a guide for running the winner on an ESP32. The chart shows gradient boosting leans almost entirely on PM2.5.</p>
+                <div class="card-foot"><span class="label">scikit-learn</span>
+                  <span class="card-links"><a class="btn-link stretch" href="https://github.com/ppeterz/asthma" target="_blank" rel="noopener">Code
+                    <svg viewBox="0 0 9 14" aria-hidden="true"><path d="M1.5 1.5 7 7l-5.5 5.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a></span>
+                </div>
+              </div>
+            </article>
+
+            <article class="card reveal" data-delay="1">
+              <div class="card-media"><img src="image/sw/deco.jpg" alt="" loading="lazy" /></div>
+              <div class="card-body">
+                <span class="eyebrow">Web design</span>
+                <h3 class="h4">Deco Interio</h3>
+                <p>A site for an interior design studio, built around space planning and finished rooms.</p>
+                <div class="card-foot"><span class="label">decod.netlify.app</span>
+                  <span class="card-links">
+                    <a class="btn-link stretch" href="https://decod.netlify.app" target="_blank" rel="noopener">Live
+                      <svg viewBox="0 0 9 14" aria-hidden="true"><path d="M1.5 1.5 7 7l-5.5 5.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+                    <a class="btn-link" href="https://github.com/ppeterz/deco" target="_blank" rel="noopener">Code
+                      <svg viewBox="0 0 9 14" aria-hidden="true"><path d="M1.5 1.5 7 7l-5.5 5.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+                  </span>
+                </div>
+              </div>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= About ================= -->
+    <section class="section-alt" id="about">
+      <div class="container">
+        <div class="section-head reveal">
+          <div class="index-row label"><span>03</span><span>About</span><span>Ibadan, NG</span></div>
+        </div>
+        <div class="about-grid">
+          <p class="statement reveal">I work where hardware meets people. <span class="muted">Sensors, firmware, power and radios on one side; a clear screen and a product someone pays for on the other. As a founder, I've taken products from first prototype to launch.</span></p>
+          <dl class="spec reveal" data-delay="1" style="margin-top:0">
+            <div><dt>Firmware</dt><dd>C and C++ on ESP32, ESP8266 and AVR. Arduino, PlatformIO, Marlin.</dd></div>
+            <div><dt>Hardware</dt><dd>AC sensing, relays, load cells, RFID, I²C and SPI, power budgets.</dd></div>
+            <div><dt>Connected</dt><dd>Wi-Fi setup, OTA updates, on-device dashboards, Blynk, Google Sheets.</dd></div>
+            <div><dt>Software</dt><dd>Next.js and TypeScript, Firestore, Python (FastAPI, scikit-learn), AI features with Gemini.</dd></div>
+          </dl>
+        </div>
+        <div class="stats">
+          <div class="stat reveal"><span class="label">Launch</span><strong>MVP</strong><p>Launched, bootstrapped and live</p></div>
+          <div class="stat reveal" data-delay="1"><span class="label">First month</span><strong>100+</strong><p>Active users</p></div>
+          <div class="stat reveal" data-delay="2"><span class="label">In production</span><strong>AI</strong><p>Features shipping to real users</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= Contact ================= -->
+    <section class="invert" id="contact">
+      <div class="container">
+        <div class="section-head reveal">
+          <div class="index-row label"><span>04</span><span>Contact</span><span>Reply within 24 h</span></div>
+        </div>
+        <div class="contact-grid">
+          <div class="reveal">
+            <h2 class="h2">Let's build something.</h2>
+            <a class="big-mail" href="mailto:hey@lessonsquill.com">hey@lessonsquill.com</a>
+            <div class="contact-list">
+              <a href="https://github.com/ppeterz/" target="_blank" rel="noopener"><span class="label">GitHub</span><span>ppeterz</span>
+                <svg viewBox="0 0 9 14" aria-hidden="true"><path d="M1.5 1.5 7 7l-5.5 5.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+              <a href="https://www.linkedin.com/in/pelumi-peter" target="_blank" rel="noopener"><span class="label">LinkedIn</span><span>pelumi-peter</span>
+                <svg viewBox="0 0 9 14" aria-hidden="true"><path d="M1.5 1.5 7 7l-5.5 5.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+              <div><span class="label">Location</span><span>Ibadan, Nigeria</span><span></span></div>
+            </div>
+          </div>
+
+          <form class="form reveal" data-delay="1" action="https://formspree.io/f/mdkdbzyk" method="POST" data-form>
+            <div class="field">
+              <label class="label" for="name">Name</label>
+              <input id="name" name="name" type="text" autocomplete="name" required placeholder="Your full name" />
+            </div>
+            <div class="field">
+              <label class="label" for="email">Email</label>
+              <input id="email" name="email" type="email" autocomplete="email" required placeholder="you@example.com" />
+            </div>
+            <div class="field">
+              <label class="label" for="message">Project</label>
+              <textarea id="message" name="message" required placeholder="What are you building?"></textarea>
+            </div>
+            <button class="btn btn-primary" type="submit">Send message</button>
+            <p class="form-status label" role="status" data-form-status></p>
           </form>
         </div>
-
-        <div class="animate-slide-up" style="animation-delay: 0.3s;">
-          <div class="space-y-8">
-            <div>
-              <h3 class="text-2xl font-bold mb-6">Get in Touch</h3>
-              <div class="space-y-4">
-                <div class="flex items-center space-x-4">
-                  <div class="w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center">📧</div>
-                  <div>
-                    <div class="font-medium">Email</div>
-                    <div class="text-gray-400">hello@pelumipeter.dev</div>
-                  </div>
-                </div>
-                
-                <div class="flex items-center space-x-4">
-                  <div class="w-12 h-12 bg-green-600 rounded-full flex items-center justify-center">📱</div>
-                  <div>
-                    <div class="font-medium">Location</div>
-                    <div class="text-gray-400">Ibadan, Nigeria</div>
-                  </div>
-                </div>
-                
-                <div class="flex items-center space-x-4">
-                  <div class="w-12 h-12 bg-purple-600 rounded-full flex items-center justify-center">⚡</div>
-                  <div>
-                    <div class="font-medium">Response Time</div>
-                    <div class="text-gray-400">Within 24 hours</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="flex space-x-6">
-              <a href="https://www.linkedin.com/in/pelumi-peter" class="w-12 h-12 bg-white-600 rounded-full flex items-center justify-center hover:bg-white-500 transition-all duration-300 transform hover:scale-110">
-                <div class="absolute inset-0 flex items-center justify-center text-white text-6xl bg-center bg-cover"
-                 style="background-image: url('image/linkedin-logo-thin-svgrepo-com.svg');">
-              
-            </div>
-              </a>
-              <a href="https://github.com/ppeterz/" class="w-12 h-12 bg-white rounded-full flex items-center justify-center hover:bg-white transition-all duration-300 transform hover:scale-110">
-                 <div class="absolute inset-0 flex items-center justify-center text-white text-6xl bg-center bg-cover"
-                 style="background-image: url('image/github-142-svgrepo-com.svg');">
-              
-            </div>
-              </a>
-              <a href="#" class="w-12 h-12 bg-white rounded-full flex items-center justify-center hover:bg-blue-600 transition-all duration-300 transform hover:scale-110">
-                 <div class="absolute inset-0 flex items-center justify-center text-white text-6xl bg-center bg-cover"
-                 style="background-image: url('image/twitter-logo-thin-svgrepo-com.svg');">
-              
-            </div>
-              </a>
-            </div>
-          </div>
-        </div>
       </div>
-    </div>
-  </section>
+    </section>
+  </main>
 
-  <!-- Footer -->
-  <footer class="bg-black py-12">
-    <div class="max-w-6xl mx-auto px-4 text-center">
-      <div class="mb-8">
-        <div class="w-16 h-16 bg-gradient-to-br from-blue-600 to-purple-600 rounded-2xl flex items-center justify-center text-white font-bold text-2xl mx-auto mb-4">
-          PP
-        </div>
-        <p class="text-gray-400 mb-4">Building the future, one project at a time.</p>
-      </div>
-      
-      <div class="border-t border-gray-800 pt-8">
-        <p class="text-gray-400 text-sm">© 2025 Pelumi Peter. All rights reserved.</p>
-        <p class="text-gray-500 text-xs mt-2">Crafted with passion and creativity ❤️</p>
-      </div>
+  <dialog class="lightbox" data-lightbox aria-label="Photo">
+    <button type="button" data-close aria-label="Close photo"><svg viewBox="0 0 14 14" aria-hidden="true"><path d="M2 2l10 10M12 2 2 12" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></button>
+    <img alt="" />
+    <p class="label"></p>
+  </dialog>
+
+  <footer>
+    <div class="container footer-inner">
+      <span class="label">© 2026 Pelumi Peter</span>
+      <span class="label">7.38°N 3.95°E</span>
+      <span class="label"><a href="blog.html">Lab notes</a> · <a href="https://github.com/ppeterz/" target="_blank" rel="noopener">GitHub</a></span>
     </div>
   </footer>
 
+  <script src="js/site.js" defer></script>
   <script>
-    // Smooth scrolling
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
-        if (target) {
-          target.scrollIntoView({
-            behavior: 'smooth',
-            block: 'start'
-          });
-        }
-      });
-    });
-
-    // Navbar scroll effect
-    window.addEventListener('scroll', () => {
-      const header = document.querySelector('header');
-      if (window.scrollY > 100) {
-        header.classList.add('bg-white/90');
-        header.classList.remove('bg-white/80');
-      } else {
-        header.classList.add('bg-white/80');
-        header.classList.remove('bg-white/90');
-      }
-    });
-
-    // Intersection Observer for animations
-    const observerOptions = {
-      threshold: 0.1,
-      rootMargin: '0px 0px -50px 0px'
-    };
-
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('animate-slide-up');
-        }
-      });
-    }, observerOptions);
-
-    // Observe all elements with animation classes
-    document.querySelectorAll('.animate-slide-up').forEach(el => {
-      observer.observe(el);
-    });
-
-    // Skill bars animation
-    const skillBars = document.querySelectorAll('.skill-bar');
-    const skillObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          const bar = entry.target;
-          const width = bar.getAttribute('data-width');
-          setTimeout(() => {
-            bar.style.width = width;
-          }, 200);
-        }
-      });
-    }, observerOptions);
-
-    skillBars.forEach(bar => {
-      bar.style.transition = 'width 2s ease-in-out';
-      skillObserver.observe(bar);
-    });
-
-    // Counter animation
-    const counterElement = document.querySelector('[data-count]');
-    const countObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          const target = parseInt(entry.target.getAttribute('data-count'));
-          let count = 0;
-          const increment = target / 100;
-          
-          const timer = setInterval(() => {
-            count += increment;
-            if (count >= target) {
-              count = target;
-              clearInterval(timer);
-            }
-            entry.target.textContent = Math.floor(count) + '+';
-          }, 30);
-        }
-      });
-    }, observerOptions);
-
-    if (counterElement) {
-      countObserver.observe(counterElement);
-    }
-
-    // Form submission
-    function handleSubmit(event) {
-      event.preventDefault();
-      const button = event.target.querySelector('button[type="submit"]');
-      const originalText = button.innerHTML;
-      
-      button.innerHTML = 'Sending... ⏳';
-      button.disabled = true;
-      
-      // Simulate form submission
-      setTimeout(() => {
-        button.innerHTML = 'Message Sent! ✅';
-        setTimeout(() => {
-          button.innerHTML = originalText;
-          button.disabled = false;
-          event.target.reset();
-        }, 2000);
-      }, 1500);
-    }
-
-    // Parallax effect for hero section
-    window.addEventListener('scroll', () => {
-      const scrolled = window.pageYOffset;
-      const parallaxElements = document.querySelectorAll('.parallax');
-      
-      parallaxElements.forEach(element => {
-        const speed = element.dataset.speed || 0.5;
-        element.style.transform = `translateY(${scrolled * speed}px)`;
-      });
-    });
-
-    // Typing animation for hero text
-    const typingElement = document.querySelector('.typing-animation');
-    if (typingElement) {
-      const text = typingElement.textContent;
-      typingElement.textContent = '';
-      typingElement.classList.add('typing-animation');
-      
-      let i = 0;
-      const typeWriter = () => {
-        if (i < text.length) {
-          typingElement.textContent += text.charAt(i);
-          i++;
-          setTimeout(typeWriter, 100);
-        }
+    /* ---------- Local time in Ibadan (WAT), ticking on the second ---------- */
+    (() => {
+      const el = document.querySelector('[data-clock]');
+      if (!el) return;
+      const fmt = new Intl.DateTimeFormat('en-GB', { timeZone: 'Africa/Lagos', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false });
+      const tick = () => {
+        el.textContent = fmt.format(new Date());
+        setTimeout(tick, 1000 - (Date.now() % 1000));
       };
-      
-      setTimeout(typeWriter, 1000);
-    }
+      tick();
+    })();
 
-    // Project cards hover effect
-    document.querySelectorAll('.project-card').forEach(card => {
-      card.addEventListener('mouseenter', function() {
-        this.style.transform = 'translateY(-12px) scale(1.02)';
+    /* ---------- Energy meter: one-button controls, like the real device ----------
+       Quick press  (< 1.5 s) : next screen   (Overview → S1 → S2 → S3)
+       Medium hold  (1.5 s)   : toggle the socket on screen (all sockets on Overview)
+       Long hold    (4 s)     : check for a GitHub OTA update                         */
+    (() => {
+      const root = document.querySelector('[data-meter]');
+      if (!root) return;
+      const lcd = root.querySelector('.lcd');
+      const live = root.querySelector('[data-meter-live]');
+      const hint = root.querySelector('[data-meter-hint]');
+      const btn = root.querySelector('.meter-btn');
+      const ring = btn.querySelector('.progress');
+      const dots = [...root.querySelectorAll('.meter-dots i')];
+      const socketEls = [...root.querySelectorAll('[data-socket]')];
+
+      const HOLD_RELAY = 1500, HOLD_OTA = 4000;
+      const CIRC = 2 * Math.PI * 31;
+      ring.style.strokeDasharray = CIRC;
+      ring.style.strokeDashoffset = CIRC;
+
+      // Readings from a bench test (1.9 kW load on socket 1). Cost is energy already used,
+      // so it stays when a socket is switched off. Screen text follows Display.cpp in the firmware.
+      const VOLTS = 212, BAND = 'A';
+      const sockets = [
+        { w: 1913, a: 9.62, cost: 163.9, on: true },
+        { w: 0, a: 0.07, cost: 0.97, on: true },
+        { w: 0, a: 0.07, cost: 0.76, on: true },
+      ];
+      let screen = 0, busy = false;
+      // C-style "%4.0f" / "%4.2f": right-align a number in a fixed width, as printf does on the device
+      const pad = (s, n) => String(s).padStart(n, ' ');
+      const naira = (n, limit) => 'N' + (n < limit ? n.toFixed(2) : n.toFixed(1));
+
+      const cells = Array.from({ length: 32 }, () => lcd.appendChild(document.createElement('span')));
+      const fit = (l, r = '') => {
+        const L = [...l], R = [...r];
+        const gap = Math.max(r ? 1 : 0, 16 - L.length - R.length);
+        return [...L, ...Array(gap).fill(' '), ...R].slice(0, 16);
+      };
+      const paint = (top, bottom, spoken) => {
+        [...top, ...bottom].forEach((ch, i) => { cells[i].textContent = ch === ' ' ? ' ' : ch; });
+        if (spoken) live.textContent = spoken;
+      };
+
+      const render = () => {
+        if (screen === 0) {
+          const cost = sockets.reduce((t, s) => t + s.cost, 0);
+          paint(fit(`V:${pad(VOLTS, 3)}V Band ${BAND}`), fit('Total: ' + naira(cost, 1000)),
+            `Overview: ${VOLTS} volts, band ${BAND}, ${cost.toFixed(2)} naira so far.`);
+        } else {
+          const s = sockets[screen - 1];
+          const a = s.on ? s.a : 0, w = s.on ? s.w : 0;
+          paint(fit(`S${screen} I:${pad(a.toFixed(2), 4)}A`), fit(`P:${pad(w, 4)}W ${naira(s.cost, 100)}`),
+            `Socket ${screen} ${s.on ? 'on' : 'off'}: ${a.toFixed(2)} amps, ${w} watts, ${s.cost.toFixed(2)} naira.`);
+        }
+        dots.forEach((d, i) => d.classList.toggle('active', i === screen));
+        socketEls.forEach((el, i) => {
+          el.classList.toggle('on', sockets[i].on);
+          el.classList.toggle('shown', screen === i + 1);
+        });
+      };
+
+      // A short status message, then back to the current screen (the firmware waits 1.2 s)
+      const flash = (top, bottom, spoken, ms, then) => {
+        busy = true;
+        paint(fit(top), fit(bottom), spoken);
+        setTimeout(() => { if (then) then(); else { busy = false; render(); } }, ms);
+      };
+
+      const toggleRelay = () => {
+        if (screen === 0) {
+          const anyOn = sockets.some((s) => s.on);
+          sockets.forEach((s) => { s.on = !anyOn; });
+          flash('All Relays', anyOn ? 'Turned OFF' : 'Turned ON', `All sockets turned ${anyOn ? 'off' : 'on'}.`, 1200);
+        } else {
+          const s = sockets[screen - 1];
+          s.on = !s.on;
+          flash(`Socket ${screen} Relay`, s.on ? 'Turned ON' : 'Turned OFF', `Socket ${screen} turned ${s.on ? 'on' : 'off'}.`, 1200);
+        }
+        socketEls.forEach((el, i) => el.classList.toggle('on', sockets[i].on));
+        if (navigator.vibrate) navigator.vibrate(12);
+      };
+
+      const checkOta = () => {
+        flash('Hold Detected!', 'Checking GitHub', 'Checking GitHub for a firmware update.', 1000, () =>
+          flash('Checking GitHub', 'For FW Updates', '', 1100, () =>
+            flash('Firmware Up2Date', 'No New Version', 'Firmware 3.1.2 is up to date.', 1600)));
+      };
+
+      const HINTS = { idle: 'Tap to change screens. Hold to switch.', tap: 'Release to change screens', relay: 'Release to switch the socket', ota: 'Checking for an update' };
+      let t0 = null, raf = 0;
+
+      const tick = () => {
+        const held = performance.now() - t0;
+        ring.style.strokeDashoffset = CIRC * (1 - Math.min(held / HOLD_OTA, 1));
+        const stage = held >= HOLD_RELAY ? 'relay' : 'tap';
+        if (btn.dataset.stage !== stage) { btn.dataset.stage = stage; hint.textContent = HINTS[stage]; }
+        if (held >= HOLD_OTA) {
+          btn.dataset.stage = 'ota'; hint.textContent = HINTS.ota;
+          end(true); checkOta();
+          return;
+        }
+        raf = requestAnimationFrame(tick);
+      };
+      const begin = () => {
+        if (t0 !== null || busy) return;
+        t0 = performance.now();
+        btn.classList.add('pressed');   // feedback on press, not on release
+        raf = requestAnimationFrame(tick);
+      };
+      function end(cancel) {
+        if (t0 === null) return;
+        cancelAnimationFrame(raf);
+        const held = performance.now() - t0;
+        t0 = null;
+        btn.classList.remove('pressed');
+        ring.style.strokeDashoffset = CIRC;   // ring eases back from where it is
+        setTimeout(() => { if (t0 === null) { delete btn.dataset.stage; hint.textContent = HINTS.idle; } }, cancel ? 1800 : 350);
+        if (cancel) return;
+        if (held < HOLD_RELAY) { screen = (screen + 1) % 4; render(); }
+        else toggleRelay();
+      }
+
+      btn.addEventListener('pointerdown', (e) => {
+        if (e.button !== 0) return;
+        try { btn.setPointerCapture(e.pointerId); } catch { /* keep going without capture */ }
+        begin();
       });
-      
-      card.addEventListener('mouseleave', function() {
-        this.style.transform = 'translateY(0) scale(1)';
+      btn.addEventListener('pointerup', () => end(false));
+      btn.addEventListener('pointercancel', () => end(true));
+      btn.addEventListener('contextmenu', (e) => e.preventDefault());
+      btn.addEventListener('keydown', (e) => {
+        if (e.key !== ' ' && e.key !== 'Enter') return;
+        e.preventDefault();
+        if (!e.repeat) begin();
       });
+      btn.addEventListener('keyup', (e) => { if (e.key === ' ' || e.key === 'Enter') end(false); });
+      btn.addEventListener('blur', () => end(true));
+
+      render();
+    })();
+
+    /* ---------- Bench footage: loops play only while on screen, and never under reduced motion ---------- */
+    (() => {
+      const loops = [...document.querySelectorAll('video[data-loop]')];
+      const still = matchMedia('(prefers-reduced-motion: reduce)');
+      if (still.matches || !('IntersectionObserver' in window)) {
+        loops.forEach((v) => { v.controls = true; });   // still watchable, just not on its own
+        return;
+      }
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach(({ target, isIntersecting }) => {
+          if (isIntersecting) target.play().catch(() => { target.controls = true; });
+          else target.pause();
+        });
+      }, { threshold: 0.5 });
+      loops.forEach((v) => io.observe(v));
+    })();
+
+    /* ---------- Film strip: arrow buttons scroll by most of a view ---------- */
+    document.querySelectorAll('[data-bench]').forEach((bench) => {
+      const strip = bench.querySelector('.bench-strip');
+      const [back, fwd] = bench.querySelectorAll('[data-dir]');
+      const smooth = matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth';
+      const sync = () => {
+        back.disabled = strip.scrollLeft < 4;
+        fwd.disabled = strip.scrollLeft + strip.clientWidth > strip.scrollWidth - 4;
+      };
+      [back, fwd].forEach((b) => b.addEventListener('click', () =>
+        strip.scrollBy({ left: Number(b.dataset.dir) * strip.clientWidth * 0.8, behavior: smooth })));
+      strip.addEventListener('scroll', sync, { passive: true });
+      addEventListener('resize', sync);
+      sync();
     });
 
-    // Add loading animation
-    window.addEventListener('load', () => {
-      document.body.classList.add('loaded');
-      
-      // Stagger animations for better UX
-      const elements = document.querySelectorAll('.animate-slide-up');
-      elements.forEach((el, index) => {
-        el.style.animationDelay = `${index * 0.1}s`;
+    /* ---------- Lightbox: open a photo full size; Esc, the close button or the backdrop closes it ---------- */
+    (() => {
+      const box = document.querySelector('[data-lightbox]');
+      if (!box || !box.showModal) return;
+      const img = box.querySelector('img');
+      const cap = box.querySelector('p');
+      let opener = null;
+      document.querySelectorAll('[data-zoom]').forEach((btn) => {
+        btn.addEventListener('click', () => {
+          const src = btn.querySelector('img');
+          img.src = src.currentSrc || src.src;
+          img.alt = src.alt;
+          const fc = btn.closest('figure')?.querySelector('figcaption');
+          cap.textContent = fc ? fc.textContent.trim() : '';
+          opener = btn;
+          box.showModal();
+        });
       });
-    });
+      box.querySelector('[data-close]').addEventListener('click', () => box.close());
+      box.addEventListener('click', (e) => { if (e.target === box) box.close(); });
+      box.addEventListener('close', () => { if (opener) opener.focus(); });
+    })();
 
-    // Mobile menu toggle (if needed)
-    const mobileMenuButton = document.querySelector('[data-mobile-menu]');
-    const mobileMenu = document.querySelector('[data-mobile-menu-content]');
-    
-    if (mobileMenuButton && mobileMenu) {
-      mobileMenuButton.addEventListener('click', () => {
-        mobileMenu.classList.toggle('hidden');
+    /* ---------- Contact form: send in place, report the result inline ---------- */
+    (() => {
+      const form = document.querySelector('[data-form]');
+      if (!form || !window.fetch) return;
+      const status = form.querySelector('[data-form-status]');
+      const button = form.querySelector('button[type="submit"]');
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        button.disabled = true;
+        button.textContent = 'Sending…';
+        status.className = 'form-status label';
+        status.textContent = '';
+        try {
+          const res = await fetch(form.action, { method: 'POST', body: new FormData(form), headers: { Accept: 'application/json' } });
+          if (!res.ok) throw new Error(res.status);
+          form.reset();
+          status.classList.add('ok');
+          status.textContent = 'Sent. Talk soon.';
+        } catch {
+          status.classList.add('err');
+          status.textContent = 'Not sent. Email hey@lessonsquill.com instead.';
+        } finally {
+          button.disabled = false;
+          button.textContent = 'Send message';
+        }
       });
-    }
-
-    // Add scroll progress indicator
-    const scrollProgress = document.createElement('div');
-    scrollProgress.className = 'fixed top-0 left-0 h-1 bg-gradient-to-r from-blue-600 to-purple-600 z-50 transition-all duration-300';
-    document.body.appendChild(scrollProgress);
-
-    window.addEventListener('scroll', () => {
-      const scrollPercent = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
-      scrollProgress.style.width = scrollPercent + '%';
-    });
+    })();
   </script>
 </body>
 </html>
