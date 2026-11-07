@@ -1,4 +1,28 @@
-/* Shared behaviour for index.html and blog.html: nav material, mobile menu, section spy, reveal on scroll. */
+/* Shared behaviour for index.html and blog.html: visit counting, nav material, mobile menu, section spy, reveal on scroll. */
+
+/* ---------- Visit counting (GoatCounter: no cookies, no consent banner needed) ----------
+   Set this to your GoatCounter code, e.g. 'pelumi-peter' for https://pelumi-peter.goatcounter.com.
+   Left empty, nothing is loaded or sent. GoatCounter also ignores localhost, so previews never count. */
+const GOATCOUNTER_CODE = 'pelumi-peter';
+
+(() => {
+  if (!GOATCOUNTER_CODE) return;
+  window.goatcounter = { endpoint: `https://${GOATCOUNTER_CODE}.goatcounter.com/count` };
+  const s = document.createElement('script');
+  s.async = true;
+  s.src = 'https://gc.zgo.at/count.js';
+  s.dataset.goatcounter = window.goatcounter.endpoint;
+  document.head.appendChild(s);
+})();
+
+// Count a named event (a click, a sent form). Safe to call before the script loads or with no code set.
+window.trackEvent = (name) => {
+  try {
+    if (window.goatcounter && typeof window.goatcounter.count === 'function') {
+      window.goatcounter.count({ path: name, title: name, event: true });
+    }
+  } catch { /* counting must never break the page */ }
+};
 
 /* ---------- Nav: scroll-edge hairline, menu sheet, section spy ---------- */
 (() => {
